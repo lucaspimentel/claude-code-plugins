@@ -1,0 +1,9 @@
+{
+  "name": "dd-trace-dotnet-azure-functions",
+  "description": "Azure Functions-specific commands for Datadog .NET tracer development. Includes building, testing, debugging, and deploying Azure Functions instrumentation.",
+  "version": "1.0.0",
+  "author": {
+    "name": "Lucas Pimentel",
+    "github": "lucaspimentel"
+  }
+}

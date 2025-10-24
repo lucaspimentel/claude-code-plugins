@@ -6,6 +6,11 @@ A Claude Code plugin for working with the [Datadog .NET APM Tracer](https://gith
 
 This plugin provides specialized commands and context to help developers work more efficiently with the dd-trace-dotnet codebase. It includes commands for building, testing, creating integrations, and troubleshooting.
 
+**For Azure Functions development**, also install the companion plugin:
+```bash
+/plugin install dd-trace-dotnet-azure-functions@lucaspimentel
+```
+
 ## Installation
 
 ### Option 1: Local Development
@@ -65,18 +70,6 @@ Create a new auto-instrumentation integration for a library.
 4. Adds integration tests
 5. Runs instrumentation generator
 
-### `/azure-functions-nuget`
-Build the Azure Functions NuGet package for local testing.
-
-**Usage:**
-```
-/azure-functions-nuget
-```
-
-**Output:**
-- Builds `Datadog.AzureFunctions` package
-- Copies to `D:/temp/nuget` by default
-- Provides usage instructions
 
 ### `/troubleshoot-ci`
 Troubleshoot CI/CD pipeline failures.

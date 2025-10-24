@@ -6,18 +6,36 @@ A collection of Claude Code plugins for various development workflows.
 
 ### [dd-trace-dotnet](./plugins/dd-trace-dotnet/)
 
-Commands and context for developing the [Datadog .NET APM Tracer](https://github.com/DataDog/dd-trace-dotnet).
+Core commands and context for developing the [Datadog .NET APM Tracer](https://github.com/DataDog/dd-trace-dotnet).
 
 **Features:**
 - Build & test commands
 - Integration development tools
-- Azure Functions support
 - Troubleshooting utilities
 - Repository context and guidelines
 
-**Commands:** 9 slash commands including `/build-tracer`, `/run-tests`, `/create-integration`, `/azure-functions-nuget`, `/troubleshoot-ci`, and more.
+**Commands:** 7 slash commands including `/build-tracer`, `/run-tests`, `/create-integration`, `/troubleshoot-ci`, `/find-integration`, `/check-logs`, `/check-pr`.
 
 [View full documentation →](./plugins/dd-trace-dotnet/README.md)
+
+---
+
+### [dd-trace-dotnet-azure-functions](./plugins/dd-trace-dotnet-azure-functions/)
+
+Azure Functions-specific commands for developing Azure Functions instrumentation in the Datadog .NET tracer.
+
+**Features:**
+- Azure Functions NuGet package building
+- Deployment automation to Azure
+- Integration testing for Azure Functions
+- Debugging tools for instrumentation issues
+- Sample function app creation
+
+**Commands:** 5 slash commands including `/azure-functions-nuget`, `/deploy-azure`, `/test-azure-functions`, `/debug-azure-functions`, `/create-sample-function`.
+
+**Note:** Install this plugin **in addition to** `dd-trace-dotnet` for Azure Functions development.
+
+[View full documentation →](./plugins/dd-trace-dotnet-azure-functions/README.md)
 
 ## Installation
 
@@ -27,10 +45,16 @@ Commands and context for developing the [Datadog .NET APM Tracer](https://github
 /plugin marketplace add lucaspimentel/claude-code-plugins
 ```
 
-### Install a Plugin
+### Install Plugins
 
+**Core plugin** (required):
 ```bash
 /plugin install dd-trace-dotnet@lucaspimentel
+```
+
+**Azure Functions plugin** (optional, for Azure Functions development):
+```bash
+/plugin install dd-trace-dotnet-azure-functions@lucaspimentel
 ```
 
 Or use the interactive menu:

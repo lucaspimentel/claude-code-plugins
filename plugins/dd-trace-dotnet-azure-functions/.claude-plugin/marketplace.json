@@ -1,0 +1,66 @@
+{
+  "name": "dd-trace-dotnet-azure-functions",
+  "displayName": "Datadog .NET Tracer - Azure Functions",
+  "description": "Specialized commands for developing and testing Azure Functions instrumentation in the Datadog .NET APM Tracer. Includes NuGet package building, deployment automation, debugging tools, and sample app creation.",
+  "version": "1.0.0",
+  "author": {
+    "name": "Lucas Pimentel",
+    "github": "lucaspimentel",
+    "email": "lucas.pimentel@datadoghq.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/DataDog/dd-trace-dotnet"
+  },
+  "keywords": [
+    "datadog",
+    "apm",
+    "tracing",
+    "dotnet",
+    "azure-functions",
+    "serverless",
+    "instrumentation",
+    "azure"
+  ],
+  "categories": [
+    "Development",
+    "Testing",
+    "Azure",
+    "Serverless"
+  ],
+  "requirements": {
+    "platforms": ["windows", "linux"],
+    "tools": [
+      ".NET SDK 6.0+",
+      "Azure Functions Core Tools",
+      "Azure CLI",
+      "Docker (for testing)"
+    ]
+  },
+  "commands": [
+    {
+      "name": "azure-functions-nuget",
+      "description": "Build Datadog Azure Functions NuGet package for testing"
+    },
+    {
+      "name": "deploy-azure",
+      "description": "Deploy and test with Azure Function Apps"
+    },
+    {
+      "name": "test-azure-functions",
+      "description": "Run Azure Functions integration tests"
+    },
+    {
+      "name": "debug-azure-functions",
+      "description": "Debug Azure Functions instrumentation issues"
+    },
+    {
+      "name": "create-sample-function",
+      "description": "Create a sample Azure Function for testing instrumentation"
+    }
+  ],
+  "dependencies": {
+    "recommended": ["dd-trace-dotnet"]
+  },
+  "license": "Apache-2.0"
+}
