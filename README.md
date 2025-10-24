@@ -2,6 +2,14 @@
 
 A collection of Claude Code plugins for various development workflows.
 
+## What's New
+
+**Latest Updates:**
+- **Two-plugin structure**: Split into core `dd-trace-dotnet` and specialized `dd-trace-dotnet-azure-functions` plugins
+- **Modular design**: Install only the plugins you need for your workflow
+- **Azure Functions focus**: Dedicated plugin with 5 commands for Azure Functions development
+- **12 total commands**: 7 core commands + 5 Azure Functions commands
+
 ## Available Plugins
 
 ### [dd-trace-dotnet](./plugins/dd-trace-dotnet/)
@@ -68,16 +76,24 @@ Then select "Browse Plugins" to see all available plugins.
 
 ```
 claude-code-plugins/
-├── marketplace.json              # Marketplace configuration
-├── README.md                     # This file
+├── marketplace.json                        # Marketplace configuration
+├── README.md                               # This file
 └── plugins/
-    └── dd-trace-dotnet/          # Datadog .NET Tracer plugin
+    ├── dd-trace-dotnet/                   # Core tracer plugin
+    │   ├── .claude-plugin/
+    │   │   ├── plugin.json
+    │   │   └── marketplace.json
+    │   ├── commands/                      # 7 slash commands
+    │   ├── AGENTS.md                      # Repository context
+    │   ├── README.md                      # Plugin documentation
+    │   └── ...
+    └── dd-trace-dotnet-azure-functions/   # Azure Functions plugin
         ├── .claude-plugin/
         │   ├── plugin.json
         │   └── marketplace.json
-        ├── commands/             # Slash commands
-        ├── AGENTS.md            # Repository context
-        ├── README.md            # Plugin documentation
+        ├── commands/                      # 5 slash commands
+        ├── AGENTS.md                      # Azure Functions context
+        ├── README.md                      # Plugin documentation
         └── ...
 ```
 
@@ -95,12 +111,15 @@ See [Claude Code Plugin Documentation](https://docs.claude.com/en/docs/claude-co
 
 ## Contributing
 
-Contributions are welcome! Please:
+Contributions are welcome! Please see [CONTRIBUTING.md](./CONTRIBUTING.md) for detailed guidelines.
 
+**Quick start:**
 1. Fork this repository
 2. Create a new branch for your plugin or changes
 3. Test your plugin locally
 4. Submit a pull request with a clear description
+
+See [CHANGELOG.md](./CHANGELOG.md) for version history.
 
 ## License
 
