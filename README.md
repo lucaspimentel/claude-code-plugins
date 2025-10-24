@@ -76,21 +76,20 @@ Then select "Browse Plugins" to see all available plugins.
 
 ```
 claude-code-plugins/
-├── marketplace.json                        # Marketplace configuration
+├── .claude-plugin/
+│   └── marketplace.json                   # Marketplace configuration
 ├── README.md                               # This file
 └── plugins/
     ├── dd-trace-dotnet/                   # Core tracer plugin
     │   ├── .claude-plugin/
-    │   │   ├── plugin.json
-    │   │   └── marketplace.json
+    │   │   └── plugin.json
     │   ├── commands/                      # 7 slash commands
     │   ├── AGENTS.md                      # Repository context
     │   ├── README.md                      # Plugin documentation
     │   └── ...
     └── dd-trace-dotnet-azure-functions/   # Azure Functions plugin
         ├── .claude-plugin/
-        │   ├── plugin.json
-        │   └── marketplace.json
+        │   └── plugin.json
         ├── commands/                      # 5 slash commands
         ├── AGENTS.md                      # Azure Functions context
         ├── README.md                      # Plugin documentation
@@ -104,7 +103,7 @@ To add a new plugin to this marketplace:
 1. Create a new directory under `plugins/`
 2. Add `.claude-plugin/plugin.json` with plugin metadata
 3. Add your commands in a `commands/` directory
-4. Update the root `marketplace.json` to include your plugin
+4. Update `.claude-plugin/marketplace.json` to include your plugin
 5. Submit a pull request
 
 See [Claude Code Plugin Documentation](https://docs.claude.com/en/docs/claude-code/plugins) for details.

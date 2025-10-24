@@ -60,8 +60,7 @@ Each plugin must have:
 ```
 plugins/your-plugin/
 ├── .claude-plugin/
-│   ├── plugin.json              # Required: Plugin metadata
-│   └── marketplace.json         # Optional: Marketplace info
+│   └── plugin.json              # Required: Plugin metadata
 ├── commands/                     # Required: At least one command
 │   └── command-name.md
 ├── README.md                    # Required: Plugin documentation
@@ -222,7 +221,7 @@ The AGENTS.md file provides context to AI agents. It should include:
    - Troubleshooting
 
 5. **Add to marketplace**:
-   Update `marketplace.json`:
+   Update `.claude-plugin/marketplace.json`:
    ```json
    {
      "plugins": [

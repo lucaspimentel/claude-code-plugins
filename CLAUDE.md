@@ -14,13 +14,13 @@ This is a Claude Code **plugin marketplace** containing plugins for Datadog .NET
 
 ```
 claude-code-plugins/                        # Repository root
-├── marketplace.json                        # Defines available plugins (owner + plugins array)
+├── .claude-plugin/
+│   └── marketplace.json                   # Marketplace registry (owner + plugins array)
 ├── README.md                               # Marketplace overview for humans
 └── plugins/                                # Individual plugin directories
     ├── dd-trace-dotnet/                   # Each plugin is self-contained
     │   ├── .claude-plugin/
-    │   │   ├── plugin.json                # Plugin metadata (name, version, author)
-    │   │   └── marketplace.json           # Plugin marketplace info
+    │   │   └── plugin.json                # Plugin metadata (name, version, author)
     │   ├── commands/                      # Markdown files = slash commands
     │   ├── AGENTS.md                      # AI context for this plugin
     │   └── README.md                      # Plugin docs for humans
@@ -32,9 +32,8 @@ claude-code-plugins/                        # Repository root
 
 ### Marketplace vs Plugin Files
 
-- **Root `marketplace.json`**: Registry of all plugins in this marketplace. Has `owner` object and `plugins` array with `name`, `source`, and `description` for each plugin.
+- **`.claude-plugin/marketplace.json`** (root): Registry of all plugins in this marketplace. Has `owner` object and `plugins` array with `name`, `source`, `description`, and optional extended metadata (version, author, keywords, etc.).
 - **Plugin `.claude-plugin/plugin.json`**: Individual plugin metadata. Has `name`, `version`, `author`, and `description`.
-- **Plugin `.claude-plugin/marketplace.json`**: Extended metadata for marketplace listing (keywords, categories, commands list, dependencies).
 
 ### Command Files
 
@@ -61,7 +60,7 @@ Plugin-specific `AGENTS.md` files provide AI context:
    - `commands/some-command.md` - At least one command
    - `README.md` - Documentation
    - `LICENSE` - License file
-3. **Register in marketplace**: Add entry to root `marketplace.json` plugins array:
+3. **Register in marketplace**: Add entry to `.claude-plugin/marketplace.json` plugins array:
    ```json
    {
      "name": "your-plugin-name",
@@ -85,8 +84,7 @@ Plugin-specific `AGENTS.md` files provide AI context:
 When splitting functionality (like Azure Functions commands from core to specialized plugin):
 1. Use `git mv` to preserve history: `git mv plugins/source/commands/file.md plugins/dest/commands/file.md`
 2. Update both plugin READMEs to reflect command changes
-3. Update root `marketplace.json` descriptions if needed
-4. Consider plugin dependencies in `.claude-plugin/marketplace.json`
+3. Update `.claude-plugin/marketplace.json` descriptions if needed
 
 ## Testing Plugins
 
@@ -164,7 +162,7 @@ Co-Authored-By: Claude <noreply@anthropic.com>
 
 When adding plugins for other repositories/workflows:
 - Create in `plugins/` with same structure
-- Register in root `marketplace.json`
+- Register in `.claude-plugin/marketplace.json`
 - Follow naming convention: `{org}-{repo}-{specialization}` (optional specialization)
 - Consider whether to split into core + specialized plugins
 
@@ -173,4 +171,3 @@ When adding plugins for other repositories/workflows:
 Keep commands focused:
 - 5-10 commands per plugin is reasonable
 - Split into specialized plugins when a domain (like Azure Functions) has 5+ commands
-- Use `dependencies.recommended` in `.claude-plugin/marketplace.json` to link related plugins
