@@ -1,0 +1,15 @@
+{
+  "name": "dd-trace-dotnet-plugins",
+  "owner": {
+    "name": "Lucas Pimentel",
+    "github": "lucaspimentel",
+    "email": "lucas.pimentel@datadoghq.com"
+  },
+  "plugins": [
+    {
+      "name": "dd-trace-dotnet",
+      "source": ".",
+      "description": "Commands and context for developing the Datadog .NET APM Tracer"
+    }
+  ]
+}
