@@ -1,0 +1,9 @@
+{
+  "name": "dd-trace-dotnet",
+  "description": "Datadog .NET APM Tracer development plugin with commands and context for the dd-trace-dotnet repository",
+  "version": "1.0.0",
+  "author": {
+    "name": "Lucas Pimentel",
+    "github": "lucaspimentel"
+  }
+}
