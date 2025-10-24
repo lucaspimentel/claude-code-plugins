@@ -14,6 +14,18 @@ The following slash commands are available:
 - `/find-integration` - Find an existing integration in the tracer
 - `/check-logs` - Check and analyze tracer logs
 
+## MCP Integration
+
+This plugin includes MCP (Model Context Protocol) server configuration for enhanced capabilities:
+
+- **Azure DevOps Pipelines**: Access to Azure DevOps pipelines via MCP for troubleshooting CI/CD failures
+  - View pipeline runs and build logs
+  - Analyze test results
+  - Debug deployment issues
+  - Default organization: `datadoghq` (customizable via `AZURE_DEVOPS_ORG` environment variable)
+
+The MCP configuration is defined in `.mcp.json` and provides seamless integration with Azure DevOps resources for the `/troubleshoot-ci` command and related workflows.
+
 ## Repository Context
 
 The dd-trace-dotnet repository contains:

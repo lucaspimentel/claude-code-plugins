@@ -13,16 +13,41 @@ This plugin provides specialized commands and context to help developers work mo
 
 ## Installation
 
-### Option 1: Local Development
+### Option 1: From Marketplace
+
+```bash
+# Add the marketplace (if not already added)
+/plugin marketplace add lucaspimentel/claude-code-plugins
+
+# Install the plugin
+/plugin install dd-trace-dotnet@lucaspimentel
+```
+
+### Option 2: Local Development
 
 1. Clone this repository or copy the plugin directory to your local machine
 2. In Claude Code, navigate to the dd-trace-dotnet repository
 3. The plugin will be automatically detected if placed in the repository root
 
-### Option 2: Manual Installation
+### Option 3: Manual Installation
 
 1. Copy the plugin to your Claude Code plugins directory
 2. Reference it in your project's `.claude/config.json`
+
+## MCP Integration
+
+This plugin includes MCP (Model Context Protocol) server configuration for enhanced capabilities:
+
+### Azure DevOps Pipelines
+
+The plugin automatically configures an MCP server for Azure DevOps pipeline access, enabling:
+- Viewing pipeline runs and build logs
+- Analyzing test failures
+- Debugging CI/CD issues
+
+**Configuration**: The default organization is `datadoghq`, but you can customize it by setting the `AZURE_DEVOPS_ORG` environment variable.
+
+**Authentication**: Requires Azure DevOps credentials. Follow the [azure-devops-mcp setup guide](https://github.com/lucaspimentel/azure-devops-mcp#authentication) to configure authentication.
 
 ## Available Commands
 
