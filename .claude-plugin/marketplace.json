@@ -1,8 +1,6 @@
 {
   "name": "lucaspimentel-plugins",
-  "metadata": {
-    "description": "Plugin marketplace for Datadog .NET tracer development workflows, including core tracer commands and Azure Functions specialization"
-  },
+  "description": "Plugin marketplace for Datadog .NET tracer development workflows, including core tracer commands and Azure Functions specialization",
   "owner": {
     "name": "Lucas Pimentel",
     "github": "lucaspimentel",
