@@ -2,6 +2,8 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
+**📚 Plugin Development Reference**: See [PLUGIN_DEVELOPMENT_GUIDE.md](./PLUGIN_DEVELOPMENT_GUIDE.md) for comprehensive documentation on creating, testing, and publishing Claude Code plugins based on official documentation.
+
 ## Repository Purpose
 
 This is a Claude Code **plugin marketplace** containing plugins for Datadog .NET tracer development workflows. It currently hosts two plugins:
