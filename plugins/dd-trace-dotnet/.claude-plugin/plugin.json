@@ -12,6 +12,7 @@
     "check-pr",
     "create-integration",
     "find-integration",
+    "review-and-comment",
     "run-tests",
     "troubleshoot-ci"
   ],

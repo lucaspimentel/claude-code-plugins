@@ -139,6 +139,21 @@ Analyze tracer logs for debugging.
 - Integration problems
 - Performance issues
 
+### `/review-and-comment`
+Review PR and post comments to GitHub.
+
+**Usage:**
+```
+/review-and-comment
+```
+
+**Features:**
+- Creates comprehensive PR review
+- Posts specific line-level comments
+- Associates all comments with review
+- Clearly identifies comments as from Claude Code
+- Focuses on actionable issues, not general praise
+
 ## Repository Structure
 
 The plugin provides context about the dd-trace-dotnet repository:

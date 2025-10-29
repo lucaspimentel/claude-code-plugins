@@ -7,8 +7,14 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ## Repository Purpose
 
 This is a Claude Code **plugin marketplace** containing plugins for Datadog .NET tracer development workflows. It currently hosts two plugins:
-- `dd-trace-dotnet` - Core tracer development commands
-- `dd-trace-dotnet-azure-functions` - Azure Functions-specific commands
+- `dd-trace-dotnet` - Core tracer development commands (8 commands)
+- `dd-trace-dotnet-azure-functions` - Azure Functions-specific commands (5 commands)
+
+## Recent Changes
+
+- Added `/review-and-comment` command to dd-trace-dotnet plugin for PR reviews
+- Added `PLUGIN_DEVELOPMENT_GUIDE.md` with comprehensive documentation from official sources
+- Fixed marketplace.json structure to comply with plugin specification
 
 ## Repository Structure
 

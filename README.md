@@ -5,10 +5,11 @@ A collection of Claude Code plugins for various development workflows.
 ## What's New
 
 **Latest Updates:**
+- **New command**: Added `/review-and-comment` for automated PR reviews with GitHub integration
+- **Plugin development guide**: Comprehensive documentation extracted from official Claude Code docs
 - **Two-plugin structure**: Split into core `dd-trace-dotnet` and specialized `dd-trace-dotnet-azure-functions` plugins
 - **Modular design**: Install only the plugins you need for your workflow
-- **Azure Functions focus**: Dedicated plugin with 5 commands for Azure Functions development
-- **12 total commands**: 7 core commands + 5 Azure Functions commands
+- **13 total commands**: 8 core commands + 5 Azure Functions commands
 
 ## Available Plugins
 
@@ -19,10 +20,11 @@ Core commands and context for developing the [Datadog .NET APM Tracer](https://g
 **Features:**
 - Build & test commands
 - Integration development tools
+- PR review and GitHub integration
 - Troubleshooting utilities
 - Repository context and guidelines
 
-**Commands:** 7 slash commands including `/build-tracer`, `/run-tests`, `/create-integration`, `/troubleshoot-ci`, `/find-integration`, `/check-logs`, `/check-pr`.
+**Commands:** 8 slash commands including `/build-tracer`, `/run-tests`, `/create-integration`, `/troubleshoot-ci`, `/find-integration`, `/check-logs`, `/check-pr`, `/review-and-comment`.
 
 [View full documentation →](./plugins/dd-trace-dotnet/README.md)
 
@@ -83,7 +85,8 @@ claude-code-plugins/
     ├── dd-trace-dotnet/                   # Core tracer plugin
     │   ├── .claude-plugin/
     │   │   └── plugin.json
-    │   ├── commands/                      # 7 slash commands
+    │   ├── commands/                      # 8 slash commands
+    │   ├── .mcp.json                      # MCP server configuration
     │   ├── AGENTS.md                      # Repository context
     │   ├── README.md                      # Plugin documentation
     │   └── ...
@@ -106,7 +109,9 @@ To add a new plugin to this marketplace:
 4. Update `.claude-plugin/marketplace.json` to include your plugin
 5. Submit a pull request
 
-See [Claude Code Plugin Documentation](https://docs.claude.com/en/docs/claude-code/plugins) for details.
+**Documentation:**
+- See [PLUGIN_DEVELOPMENT_GUIDE.md](./PLUGIN_DEVELOPMENT_GUIDE.md) for comprehensive plugin creation guide
+- See [Claude Code Plugin Documentation](https://docs.claude.com/en/docs/claude-code/plugins) for official docs
 
 ## Contributing
 
