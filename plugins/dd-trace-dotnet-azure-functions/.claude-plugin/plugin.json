@@ -5,5 +5,12 @@
   "author": {
     "name": "Lucas Pimentel",
     "github": "lucaspimentel"
-  }
+  },
+  "commands": [
+    "azure-functions-nuget",
+    "create-sample-function",
+    "debug-azure-functions",
+    "deploy-azure",
+    "test-azure-functions"
+  ]
 }

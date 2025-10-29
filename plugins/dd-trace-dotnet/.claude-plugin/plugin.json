@@ -5,5 +5,15 @@
   "author": {
     "name": "Lucas Pimentel",
     "github": "lucaspimentel"
-  }
+  },
+  "commands": [
+    "build-tracer",
+    "check-logs",
+    "check-pr",
+    "create-integration",
+    "find-integration",
+    "run-tests",
+    "troubleshoot-ci"
+  ],
+  "mcpServers": "./.mcp.json"
 }
