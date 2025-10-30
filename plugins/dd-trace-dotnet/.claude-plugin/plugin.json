@@ -7,14 +7,14 @@
     "github": "lucaspimentel"
   },
   "commands": [
-    "build-tracer",
-    "check-logs",
-    "check-pr",
-    "create-integration",
-    "find-integration",
-    "review-and-comment",
-    "run-tests",
-    "troubleshoot-ci"
+    "./commands/build-tracer.md",
+    "./commands/check-logs.md",
+    "./commands/check-pr.md",
+    "./commands/create-integration.md",
+    "./commands/find-integration.md",
+    "./commands/review-and-comment.md",
+    "./commands/run-tests.md",
+    "./commands/troubleshoot-ci.md"
   ],
   "mcpServers": "./.mcp.json"
 }

@@ -7,10 +7,10 @@
     "github": "lucaspimentel"
   },
   "commands": [
-    "azure-functions-nuget",
-    "create-sample-function",
-    "debug-azure-functions",
-    "deploy-azure",
-    "test-azure-functions"
+    "./commands/azure-functions-nuget.md",
+    "./commands/create-sample-function.md",
+    "./commands/debug-azure-functions.md",
+    "./commands/deploy-azure.md",
+    "./commands/test-azure-functions.md"
   ]
 }
