@@ -107,6 +107,31 @@ Use these to specify custom locations for components:
 - Must be relative paths starting with `./`
 - Supplement default directories (don't replace them)
 
+### Explicit Command File Paths
+
+Instead of specifying a directory, you can explicitly list command files in the `commands` array:
+
+```json
+{
+  "commands": [
+    "./commands/build-tracer.md",
+    "./commands/check-logs.md",
+    "./commands/run-tests.md"
+  ]
+}
+```
+
+**Requirements for explicit command paths:**
+- Each path must start with `./`
+- Each path must end with `.md`
+- Paths are relative to plugin root
+- Use this approach when you want fine-grained control over which commands are registered
+
+**When to use explicit paths vs directory paths:**
+- **Directory path** (`"commands": "./commands"`): Auto-discovers all `.md` files in directory
+- **Explicit paths** (`"commands": ["./commands/foo.md"]`): Manually specify exact files to register
+- Choose explicit paths when you have command files that shouldn't be registered automatically
+
 ---
 
 ## Commands
