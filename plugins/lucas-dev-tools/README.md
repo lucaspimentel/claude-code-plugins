@@ -1,4 +1,4 @@
-# lucas-dev-tools v1.3.1
+# lucas-dev-tools v1.4.0
 
 Developer workflow utilities for day-to-day use inside Claude Code.
 
@@ -13,6 +13,9 @@ Developer workflow utilities for day-to-day use inside Claude Code.
 | `update-docs` | Update project documentation based on recent changes |
 | `update-pr-description` | Update the PR title and description to reflect the current changes |
 | `review-pr` | Review a pull request for issues and feedback |
+| `plan-and-execute` | Plan and implement a feature or bug fix |
+| `commit-and-push` | Update docs, commit changes, and push to remote |
+| `whats-next` | Show the next task from TODO.md and plan/execute it |
 
 ## Hooks
 
