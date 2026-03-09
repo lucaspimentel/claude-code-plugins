@@ -1,11 +1,12 @@
 ---
 name: git-commit
-description: "Commit pending changes to git. Use when the user says 'commit', 'commit my changes', 'commit all', 'commit everything', 'save my work to git', 'stage and commit', or any variation of wanting to create a git commit. Accepts an optional argument describing what to commit (e.g. 'all changes', 'staged only', specific file names, etc.)."
+description: "Commit pending changes to git. Use when the user says 'commit', 'commit my changes', 'commit all', 'commit everything', 'save my work to git', 'stage and commit', or any variation of wanting to create a git commit. Accepts an optional argument describing what to commit (e.g. 'all changes', 'staged only', specific file names, etc.). Also accepts an optional 'push' keyword to push after committing."
+argument-hint: "[push] [file or description]"
 model: sonnet
 ---
 
 Commit pending changes to git.
-Do not push these new commits unless also asked to do so.
+If the user's arguments include the keyword `push`, push the new commits after committing. Otherwise, do not push.
 
 ## Workflow
 
@@ -38,6 +39,15 @@ Then stage and commit each group in sequence. If the user's argument narrows the
 ## Windows path handling
 - If you are already in the correct directory, run `git` commands directly — don't prepend `cd <path> &&`.
 - In git bash on Windows, these path forms are equivalent: `D:\foo`, `D:/foo`, `/d/foo`. Don't try to cd between them.
+
+## Push (only if requested)
+
+After all commits succeed, if `push` was requested:
+
+1. Check if the current branch has an upstream: `git rev-parse --abbrev-ref @{upstream}`
+2. If no upstream: `git push -u origin HEAD`
+3. Otherwise: `git push`
+4. **Never force-push.** If push fails due to diverged history, report the error and let the user decide.
 
 ## Critical Error Handling
 - If `git commit` fails with "1Password: agent returned an error", STOP immediately
