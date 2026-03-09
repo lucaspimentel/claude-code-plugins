@@ -1,6 +1,6 @@
 ---
 name: ship
-description: "Run one or more release actions: version, docs, commit, tag, push. Use when the user says 'ship', 'ship it', 'commit and push', 'version and push', 'tag and push', 'version commit push', 'save everything and push', 'release', or any variation of wanting to run a combination of version/docs/commit/tag/push steps. Arguments: action keywords (version, docs, commit, tag, push) in any order, plus an optional version specifier (e.g. 'patch', 'minor', 'major', or an explicit version like '2.0.0') for the version action."
+description: "Run one or more release actions: version, docs, commit, tag, push. With no arguments, auto-detects needed actions from repo state and asks for confirmation. Use when the user says 'ship', 'ship it', 'commit and push', 'version and push', 'tag and push', 'version commit push', 'save everything and push', 'release', or any variation of wanting to run a combination of version/docs/commit/tag/push steps. Arguments: action keywords (version, docs, commit, tag, push) in any order, plus an optional version specifier (e.g. 'patch', 'minor', 'major', or an explicit version like '2.0.0') for the version action."
 argument-hint: "[version] [docs] [commit] [tag] [push] [major|minor|patch|x.y.z]"
 model: sonnet
 ---
@@ -17,7 +17,17 @@ Extract from the skill arguments:
   - A semver keyword: `major`, `minor`, `patch`
   - Nothing (auto-determine — see version action below)
 
-If no action keywords are found, tell the user the available actions and stop.
+If no action keywords are found, **auto-detect** actions based on repo state:
+
+1. **Check for uncommitted changes** — run `git status --porcelain`. If there are dirty/untracked files → add `commit`.
+2. **Check for unpushed commits** — run `git log @{upstream}..HEAD --oneline 2>/dev/null`. If any commits are listed → add `push`. If there is no upstream (command fails) → also add `push` (need to set up tracking).
+3. **Check for untagged version** — discover the current version (same logic as section 2 step 1) and check if a matching `v<version>` tag exists (`git tag --list 'v<version>'`). If no matching tag → add `tag`.
+
+Present the detected actions as a **multi-select checklist** (using `AskUserQuestion` with `multiSelect: true`) so the user can toggle individual actions on or off. **Pre-select all detected actions.**
+
+If no actions are detected, tell the user everything is up to date and stop.
+
+**Implicit commit**: If any action that modifies files is requested (`version`, `docs`) but `commit` is not explicitly listed, add `commit` automatically — those file changes need to be committed.
 
 Reorder the requested actions into **canonical order**: version → docs → commit → tag → push. Always execute in this order regardless of argument order.
 
