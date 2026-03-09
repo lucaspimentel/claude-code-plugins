@@ -2,6 +2,8 @@
 
 Chezmoi dotfile management: diff resolution, file sync between source and destination.
 
+See [installation instructions](../../README.md#installation).
+
 ## Skills
 
 | Skill | Description |

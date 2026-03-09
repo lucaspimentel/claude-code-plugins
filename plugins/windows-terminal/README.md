@@ -4,6 +4,8 @@
 
 Windows Terminal pane and tab management via `wt.exe`.
 
+See [installation instructions](../../README.md#installation).
+
 ## Skills
 
 | Skill | Description |

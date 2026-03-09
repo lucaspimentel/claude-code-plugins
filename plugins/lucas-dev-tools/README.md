@@ -2,6 +2,8 @@
 
 Developer workflow utilities for day-to-day use inside Claude Code.
 
+See [installation instructions](../../README.md#installation).
+
 ## Skills
 
 | Skill | Description |
