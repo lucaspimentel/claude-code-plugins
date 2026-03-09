@@ -1,6 +1,7 @@
 ---
 name: ship
 description: "Run one or more release actions: version, docs, commit, tag, push. Use when the user says 'ship', 'ship it', 'commit and push', 'version and push', 'tag and push', 'version commit push', 'save everything and push', 'release', or any variation of wanting to run a combination of version/docs/commit/tag/push steps. Arguments: action keywords (version, docs, commit, tag, push) in any order, plus an optional version specifier (e.g. 'patch', 'minor', 'major', or an explicit version like '2.0.0') for the version action."
+argument-hint: "[version] [docs] [commit] [tag] [push] [major|minor|patch|x.y.z]"
 model: sonnet
 ---
 

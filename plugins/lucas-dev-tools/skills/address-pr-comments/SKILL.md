@@ -1,5 +1,6 @@
 ---
 name: address-pr-comments
+argument-hint: "[PR number]"
 description: "Interactively walk through and address PR review comments one at a time. Use when the user says 'address PR comments', 'handle PR feedback', 'go through PR comments', 'fix review comments', 'what did reviewers say', 'let's fix the review feedback', 'address review threads', 'work through PR feedback', or any variation of wanting to systematically address pull request review comments. NOT for reviewing code (use review-pr) or just fetching comments (use get-pr-feedback). Accepts an optional PR number argument; defaults to the current branch's PR."
 ---
 
