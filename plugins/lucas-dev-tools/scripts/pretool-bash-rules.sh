@@ -27,13 +27,14 @@ if [ "$DISABLE_REDUNDANT_CD_RULE" != "1" ] && echo "$command" | grep -qE '(cd\s+
   cwd=$(echo "$input" | jq -r '.cwd // "unknown"')
   # Extract the target path using bash builtins (avoids MSYS path conversion)
   target=""
-  if [[ "$command" =~ cd[[:space:]]+('"'?)([^';''|''&'' ']+) ]]; then
+  if [[ "$command" =~ cd[[:space:]]+([\"\']?)([^';''|''&'' '\"]+) ]]; then
     target="${BASH_REMATCH[2]}"
-  elif [[ "$command" =~ git[[:space:]]+-C[[:space:]]+('"'?)([^';''|''&'' ']+) ]]; then
+  elif [[ "$command" =~ git[[:space:]]+-C[[:space:]]+([\"\']?)([^';''|''&'' '\"]+) ]]; then
     target="${BASH_REMATCH[2]}"
   fi
   # Strip trailing quote if present
-  target="${target%'"'}"
+  target="${target%\"}"
+  target="${target%\'}"
   # Normalize both paths with cygpath -w for comparison (consistent Windows format)
   norm_cwd=$(cygpath -w "$cwd" 2>/dev/null || echo "$cwd")
   norm_target=$(cygpath -w "$target" 2>/dev/null || echo "$target")
