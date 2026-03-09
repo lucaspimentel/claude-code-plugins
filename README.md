@@ -14,13 +14,31 @@ Personal [Claude Code](https://claude.ai/code) plugin marketplace by Lucas Pimen
 
 ## Installation
 
+### From the CLI
+
 1. Add the marketplace:
    ```sh
-   /plugin marketplace add https://github.com/lucaspimentel/claude-plugins
+   claude plugin marketplace add https://github.com/lucaspimentel/claude-plugins
    ```
 
 2. Install a plugin:
    ```sh
+   claude plugin install lucas-dev-tools@lucasp-claude-plugins
+   claude plugin install chezmoi@lucasp-claude-plugins
+   claude plugin install windows-notify@lucasp-claude-plugins
+   claude plugin install linters@lucasp-claude-plugins
+   claude plugin install windows-terminal@lucasp-claude-plugins
+   ```
+
+### From inside Claude Code
+
+1. Add the marketplace:
+   ```
+   /plugin marketplace add https://github.com/lucaspimentel/claude-plugins
+   ```
+
+2. Install a plugin:
+   ```
    /plugin install lucas-dev-tools@lucasp-claude-plugins
    /plugin install chezmoi@lucasp-claude-plugins
    /plugin install windows-notify@lucasp-claude-plugins
@@ -28,8 +46,17 @@ Personal [Claude Code](https://claude.ai/code) plugin marketplace by Lucas Pimen
    /plugin install windows-terminal@lucasp-claude-plugins
    ```
 
-For local development, use a local path instead:
+### Local development
+
+For local development, use a local path instead of the GitHub URL:
+
+From the CLI:
 ```sh
+claude plugin marketplace add ./path/to/lucas-claude-plugins
+```
+
+From inside Claude Code:
+```
 /plugin marketplace add ./path/to/lucas-claude-plugins
 ```
 

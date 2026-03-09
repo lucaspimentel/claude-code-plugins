@@ -28,15 +28,6 @@ Follow [semver](https://semver.org/) when bumping plugin versions. When a plugin
 
 Skills are auto-discovered from the `skills/` directory — no registration in `plugin.json` needed.
 
-## Installing the Marketplace Locally
-
-```sh
-/plugin marketplace add ./path/to/lucas-claude-plugins
-/plugin install lucas-dev-tools@lucasp-claude-plugins
-```
-
-To test a skill after changes, reinstall the plugin or reload Claude Code.
-
 ## Reference Docs
 
 - [Plugins](https://code.claude.com/docs/en/plugins.md) — overview, plugin structure, skills, hooks, subagents
