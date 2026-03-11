@@ -1,4 +1,4 @@
-# lucas-dev-tools v1.6.2
+# lucas-dev-tools v1.7.0
 
 Developer workflow utilities for day-to-day use inside Claude Code.
 
@@ -18,6 +18,7 @@ See [installation instructions](../../README.md#installation).
 | `plan-and-execute` | Plan and implement a feature or bug fix |
 | `ship` | Run one or more release actions: version, docs, commit, tag, push |
 | `whats-next` | Show the next task from TODO.md and plan/execute it |
+| `add-todo` | Add new tasks to TODO.md with research context |
 
 ## Hooks
 
