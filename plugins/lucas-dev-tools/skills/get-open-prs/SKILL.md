@@ -44,22 +44,29 @@ Fetch and display open pull requests for the current GitHub repository.
 
    Pass `owner` and `name` as GraphQL variables via `-f owner=... -f name=...`.
 
-3. **Apply user filters**
+   **Pagination:** The query fetches up to 100 PRs. For repos with more than 100 open PRs, use cursor-based pagination: add `pageInfo { hasNextPage endCursor }` to the query and loop with `after: $cursor` until `hasNextPage` is false.
 
-   If the user requested filters (by author, label, draft status, etc.), adjust the GraphQL query or post-filter the results accordingly. No formal argument list -- interpret the user's natural language request.
+3. **Filter results**
+
+   By default, **exclude draft PRs**. Only include drafts if the user explicitly asks for them (e.g. "include drafts", "show draft PRs").
+
+   If the user requested other filters (by author, label, etc.), adjust the GraphQL query or post-filter the results accordingly. No formal argument list -- interpret the user's natural language request.
 
 4. **Format output**
 
-   Print one line per PR:
+   Display results as a markdown table:
 
    ```
-   #123 [DRAFT] (@author) Title of the PR  [2 approvals]  https://github.com/...
+   | PR | Author | Title | Approvals | URL |
+   |---|---|---|---|---|
+   | #123 | @author | Title of the PR | 2 | https://github.com/... |
    ```
 
    Rules:
-   - `[DRAFT]` only appears if `isDraft` is true
-   - Approval count: count distinct reviewers whose most recent review `state` is `APPROVED`
-   - If any reviewer has `CHANGES_REQUESTED` as their most recent review, show `[N changes requested]` as well
+   - Author format: `@login` (no parentheses)
+   - Approvals column: just the count (e.g. `2`), or empty if zero. The column header makes the meaning clear.
+   - If any reviewer has `CHANGES_REQUESTED` as their most recent review, show the count in a separate "Changes Requested" column (only add this column if any PR has changes requested)
+   - Approval count: count distinct reviewers whose most recent review `state` is `APPROVED`. **Important:** GitHub returns reviews in chronological order, so when deduplicating by reviewer, take the **last** entry per reviewer (e.g. `.[-1]` in jq), not the first. A reviewer may have `CHANGES_REQUESTED` followed by `APPROVED` — only the most recent state matters.
    - End with a summary line: **"N open PRs"** (or **"N open PRs (M total)"** if the query returned fewer than `totalCount`)
    - If no results: **"No open PRs found."**
 
