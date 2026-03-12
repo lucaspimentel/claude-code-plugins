@@ -1,6 +1,6 @@
 ---
 name: chezmoi-diff
-allowed-tools: Bash(chezmoi status:*), Bash(chezmoi diff:*), Bash(chezmoi cat:*), Bash(chezmoi source-path:*), Bash(chezmoi target-path:*)
+allowed-tools: Bash(chezmoi status:*), Bash(chezmoi diff:*), Bash(chezmoi cat:*), Bash(chezmoi source-path:*), Bash(chezmoi target-path:*), Bash(git status:*), Bash(git add:*), Bash(git commit:*), Bash(git diff:*), Bash(git log:*)
 description: >
   Help resolve differences between chezmoi-managed dotfiles and local files.
   Use this skill whenever the user mentions chezmoi, dotfiles sync, chezmoi update,
@@ -111,6 +111,24 @@ After all files have been decided, execute the Apply and Copy actions in batch:
     Show the user a diff of what you plan to write, and ask for confirmation before writing.
 
 Confirm the full batch with the user before executing any writes.
+
+### Step 5: Offer to Commit and Push
+
+After all apply/copy actions are executed, check the chezmoi source directory for uncommitted git changes:
+
+1. Get the chezmoi source directory path with `chezmoi source-path` (no arguments).
+2. Run `git status` in that directory to check for uncommitted changes.
+3. If there are no changes, skip this step silently.
+4. If there are changes, show a summary of what changed (the files modified in the source directory)
+   and use `AskUserQuestion` to offer:
+   - **Commit and push** — stage all changes, commit with a descriptive message summarizing what was synced, and push to remote
+   - **Commit only** — stage and commit, but don't push
+   - **Skip** — leave changes uncommitted
+5. If committing, stage the changed files with `git add`, create a commit with a message like
+   `chezmoi: sync <list of dotfiles changed>`, and push if requested.
+
+Note: `git push` is intentionally excluded from `allowed-tools` so the user always gets a manual
+confirmation prompt before pushing to remote.
 
 ## Important Details
 
