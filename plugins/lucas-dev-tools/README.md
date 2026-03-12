@@ -1,4 +1,4 @@
-# lucas-dev-tools v1.8.2
+# lucas-dev-tools v1.8.3
 
 Developer workflow utilities for day-to-day use inside Claude Code.
 

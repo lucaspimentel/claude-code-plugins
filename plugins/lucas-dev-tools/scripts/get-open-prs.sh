@@ -2,19 +2,24 @@
 # Fetch open PRs for a GitHub repository via GraphQL.
 # Outputs JSON array with computed review stats per PR.
 #
-# Usage: get-open-prs.sh <owner> <name> [--include-drafts] [--include-bots]
+# Usage: get-open-prs.sh <owner/repo> [--include-drafts] [--include-bots]
 #
 # Output per PR:
 #   { number, url, title, isDraft, author, approvals, changesRequested }
 
 set -euo pipefail
 
-owner="${1:?Usage: get-open-prs.sh <owner> <name> [--include-drafts] [--include-bots]}"
-name="${2:?Usage: get-open-prs.sh <owner> <name> [--include-drafts] [--include-bots]}"
+repo="${1:?Usage: get-open-prs.sh <owner/repo> [--include-drafts] [--include-bots]}"
+owner="${repo%%/*}"
+name="${repo#*/}"
+if [[ "$owner" == "$name" || -z "$owner" || -z "$name" ]]; then
+  echo "Error: argument must be in owner/repo format (e.g. DataDog/dd-trace-dotnet)" >&2
+  exit 1
+fi
 include_drafts=false
 # shellcheck disable=SC2034
 include_bots=false
-for arg in "${@:3}"; do
+for arg in "${@:2}"; do
   case "$arg" in
     --include-drafts) include_drafts=true ;;
     --include-bots) include_bots=true ;;
@@ -85,7 +90,7 @@ while true; do
   has_next=$(echo "$result" | jq -r '.data.repository.pullRequests.pageInfo.hasNextPage')
   cursor=$(echo "$result" | jq -r '.data.repository.pullRequests.pageInfo.endCursor')
 
-  all_nodes=$(jq -s '.[0] + .[1]' <(echo "$all_nodes") <(echo "$page_nodes"))
+  all_nodes=$(printf '%s\n%s' "$all_nodes" "$page_nodes" | jq -s '.[0] + .[1]')
 
   if [[ "$has_next" != "true" ]]; then
     break

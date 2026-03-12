@@ -7,20 +7,20 @@ allowed-tools: Bash(gh repo view *), Bash(bash *get-open-prs.sh*)
 
 # get-open-prs
 
-Fetch and display open pull requests for the current GitHub repository.
+Execute immediately. Do not ask for confirmation or describe what you will do — just run the steps below and display the results.
 
 ## Steps
 
 1. **Get repo owner and name**
 
-   Run `gh repo view --json owner,name` to determine the current repository. If this fails (not a git repo, no GitHub remote), print a clear error and stop.
+   Run `gh repo view --json nameWithOwner -q .nameWithOwner` to get the `owner/repo` string (e.g. `DataDog/dd-trace-dotnet`). If this fails (not a git repo, no GitHub remote), print a clear error and stop.
 
 2. **Fetch and process PRs**
 
    Run the helper script:
 
    ```bash
-   bash "${CLAUDE_PLUGIN_ROOT}/scripts/get-open-prs.sh" <owner> <name> [flags]
+   bash "${CLAUDE_PLUGIN_ROOT}/scripts/get-open-prs.sh" <owner/repo> [flags]
    ```
 
    Flags:
