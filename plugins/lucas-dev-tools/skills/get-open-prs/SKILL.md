@@ -1,6 +1,6 @@
 ---
 name: get-open-prs
-description: "List open pull requests for the current GitHub repository. Use when the user says 'open PRs', 'show PRs', 'list PRs', 'get PRs', 'what PRs are open', 'pending PRs', 'pull requests', 'any open PRs', 'PR list', 'show me the PRs', or any variation of wanting to see open pull requests for a repo."
+description: "List open pull requests for the current GitHub repository. Use when the user says 'open PRs', 'show PRs', 'list PRs', 'get PRs', 'what PRs are open', 'pending PRs', 'pull requests', 'any open PRs', 'PR list', 'show me the PRs', 'PRs for me to review', 'PRs needing review', 'what needs my review', or any variation of wanting to see open pull requests for a repo."
 model: haiku
 allowed-tools: Bash(gh repo view *), Bash(bash *get-open-prs.sh*)
 ---
@@ -52,11 +52,11 @@ Execute immediately. Do not ask for confirmation or describe what you will do â€
    ```
    | PR | Author | Title | Approved By | URL |
    |---|---|---|---|---|
-   | #123 | @author | Title of the PR | @reviewer1, @reviewer2 | https://github.com/... |
+   | #123 | author | Title of the PR | reviewer1, reviewer2 | https://github.com/... |
    ```
 
    Rules:
-   - Author format: `@login` (no parentheses)
-   - Approved By column: comma-separated `@login` names from `approvedBy`, or empty if none
+   - Author format: plain `login` (no `@` prefix, no parentheses)
+   - Approved By column: comma-separated plain `login` names from `approvedBy`, or empty if none
    - End with a summary line: **"N open PRs"** (or **"N open PRs (M total)"** if fewer PRs were returned than `totalCount`)
    - If no results: **"No open PRs found."**
