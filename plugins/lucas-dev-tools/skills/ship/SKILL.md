@@ -1,8 +1,8 @@
 ---
 name: ship
-description: "Run one or more release actions: version, docs, commit, tag, push. With no arguments, auto-detects needed actions from repo state and asks for confirmation. Use when the user says 'ship', 'ship it', 'commit and push', 'version and push', 'tag and push', 'version commit push', 'save everything and push', 'release', or any variation of wanting to run a combination of version/docs/commit/tag/push steps. Arguments: action keywords (version, docs, commit, tag, push) in any order, plus an optional version specifier (e.g. 'patch', 'minor', 'major', or an explicit version like '2.0.0') for the version action."
-argument-hint: "[version] [docs] [commit] [tag] [push] [major|minor|patch|x.y.z]"
-allowed-tools: Bash(git status *), Bash(git log *), Bash(git tag --list *)
+description: "Run one or more release actions: version, docs, commit, tag, push, watch. With no arguments, auto-detects needed actions from repo state and asks for confirmation. Use when the user says 'ship', 'ship it', 'commit and push', 'version and push', 'tag and push', 'bump version and push', 'version commit push', 'save everything and push', 'release', 'cut a release', 'publish', 'ship and watch', 'push and watch CI', 'tag and watch', 'deploy', or any variation of wanting to run a combination of version/docs/commit/tag/push/watch steps."
+argument-hint: "[version] [docs] [commit] [tag] [push] [watch] [major|minor|patch|x.y.z]"
+allowed-tools: Bash(git status *), Bash(git log *), Bash(git tag --list *), Bash(git rev-parse *), Bash(git diff *), Bash(gh run list *), Bash(gh run watch *), Bash(sleep *)
 model: sonnet
 ---
 
@@ -12,7 +12,7 @@ You are a release automation skill. Parse the user's arguments, then run the req
 
 Extract from the skill arguments:
 
-- **Action keywords**: `version`, `docs`, `commit`, `tag`, `push` (case-insensitive)
+- **Action keywords**: `version`, `docs`, `commit`, `tag`, `push`, `watch` (case-insensitive)
 - **Version specifier** (optional, only relevant when `version` is requested): one of
   - An explicit semver version like `2.0.0` or `1.5.0`
   - A semver keyword: `major`, `minor`, `patch`
@@ -23,6 +23,7 @@ If no action keywords are found, **auto-detect** actions based on repo state:
 1. **Check for uncommitted changes** — run `git status --porcelain`. If there are dirty/untracked files → add `commit`.
 2. **Check for unpushed commits** — run `git log @{upstream}..HEAD --oneline 2>/dev/null`. If any commits are listed → add `push`. If there is no upstream (command fails) → also add `push` (need to set up tracking).
 3. **Check for untagged version** — discover the current version (same logic as section 2 step 1) and check if a matching `v<version>` tag exists (`git tag --list 'v<version>'`). If no matching tag → add `tag`.
+4. **Auto-add watch** — if both `tag` and `push` are detected (either explicitly or via auto-detect), also add `watch` (pushing a tag typically triggers CI workflows).
 
 Present the detected actions as a **multi-select checklist** (using `AskUserQuestion` with `multiSelect: true`) so the user can toggle individual actions on or off. **Pre-select all detected actions.**
 
@@ -30,7 +31,7 @@ If no actions are detected, tell the user everything is up to date and stop.
 
 **Implicit commit**: If any action that modifies files is requested (`version`, `docs`) but `commit` is not explicitly listed, add `commit` automatically — those file changes need to be committed.
 
-Reorder the requested actions into **canonical order**: version → docs → commit → tag → push. Always execute in this order regardless of argument order.
+Reorder the requested actions into **canonical order**: version → docs → commit → tag → push → watch. Always execute in this order regardless of argument order.
 
 ## 2 — Early version resolution (if version requested)
 
@@ -46,7 +47,7 @@ If `version` is requested and no explicit version was given, resolve the target 
    If multiple sources exist with conflicting versions, ask the user which is authoritative.
 2. **If a semver keyword was given** (`major`, `minor`, `patch`): compute the new version by incrementing that component of the current version.
 3. **If no specifier at all**: auto-suggest by inspecting changes since the last `v*` tag:
-   - Run `git tag --list 'v*' --sort=-v:refname` to find the latest version tag
+   - Run `git tag --list 'v*' --sort=-creatordate` to find the latest version tag
    - Run `git diff <latest-tag>...HEAD --stat` to see what changed
    - If any breaking/major signal → suggest major
    - If new features or new files → suggest minor
@@ -72,11 +73,11 @@ Glob for these files to find them. After editing, briefly list which files were 
 
 ### docs
 
-Run the `/update-docs` skill.
+Delegate to the `update-docs` skill.
 
 ### commit
 
-Run the `/git-commit` skill.
+Delegate to the `git-commit` skill.
 
 ### tag
 
@@ -89,5 +90,14 @@ Run the `/git-commit` skill.
 1. Check if the current branch has an upstream: `git rev-parse --abbrev-ref @{upstream}`
 2. If no upstream: `git push -u origin HEAD`
 3. Otherwise: `git push`
-4. If the `tag` action was also requested in this run: `git push --tags`
+4. If the `tag` action was also requested in this run: `git push origin v<version>` (push only the specific tag, not all local tags)
 5. **Never force-push.** If push fails due to diverged history, report the error and let the user decide.
+
+### watch
+
+1. Run `sleep 5` to allow GitHub to register the push event.
+2. List recent workflow runs: `gh run list --limit 5 --json databaseId,name,status,event,createdAt`. If `gh` fails with an auth error, report the issue and skip the watch action.
+3. Filter for runs that started within the last 60 seconds (compare `createdAt` to the current time).
+4. If no runs found, run `sleep 5` and retry once. If still no runs, report "No CI workflows were triggered" and stop.
+5. For each run, call `gh run watch --exit-status <id>` using a 10-minute Bash timeout (`timeout: 600000`) to stream progress until completion. The `--exit-status` flag returns a non-zero exit code on failure, making pass/fail detection reliable.
+6. Report final status (pass/fail) for each workflow.
