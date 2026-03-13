@@ -29,13 +29,13 @@ Execute immediately. Do not ask for confirmation or describe what you will do â€
 
    Add flags based on the user's request (e.g. "include drafts", "show dependabot PRs").
 
-   The script handles pagination, review deduplication, and filtering. It outputs JSON:
+   The script fetches up to 100 PRs, filters, and returns the first 30 matches. It outputs JSON:
 
    ```json
    {
      "totalCount": 191,
      "prs": [
-       { "number": 123, "url": "...", "title": "...", "isDraft": false, "author": "login", "approvals": 2, "changesRequested": 0 },
+       { "number": 123, "url": "...", "title": "...", "author": "login", "approvedBy": ["reviewer1", "reviewer2"] },
        ...
      ]
    }
@@ -50,14 +50,13 @@ Execute immediately. Do not ask for confirmation or describe what you will do â€
    Display results as a markdown table:
 
    ```
-   | PR | Author | Title | Approvals | URL |
+   | PR | Author | Title | Approved By | URL |
    |---|---|---|---|---|
-   | #123 | @author | Title of the PR | 2 | https://github.com/... |
+   | #123 | @author | Title of the PR | @reviewer1, @reviewer2 | https://github.com/... |
    ```
 
    Rules:
    - Author format: `@login` (no parentheses)
-   - Approvals column: just the count (e.g. `2`), or empty if zero
-   - If any PR has `changesRequested > 0`, add a "Changes Requested" column (only add this column when needed)
+   - Approved By column: comma-separated `@login` names from `approvedBy`, or empty if none
    - End with a summary line: **"N open PRs"** (or **"N open PRs (M total)"** if fewer PRs were returned than `totalCount`)
    - If no results: **"No open PRs found."**

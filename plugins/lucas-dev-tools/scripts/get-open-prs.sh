@@ -5,7 +5,7 @@
 # Usage: get-open-prs.sh <owner/repo> [--include-drafts] [--include-bots]
 #
 # Output per PR:
-#   { number, url, title, isDraft, author, approvals, changesRequested }
+#   { number, url, title, author, approvedBy: ["login", ...] }
 
 set -euo pipefail
 
@@ -29,16 +29,16 @@ done
 # $variables below are GraphQL syntax, not shell
 # shellcheck disable=SC2016
 query='
-query($owner: String!, $name: String!, $cursor: String) {
+query($owner: String!, $name: String!) {
   repository(owner: $owner, name: $name) {
-    pullRequests(states: OPEN, first: 100, orderBy: {field: UPDATED_AT, direction: DESC}, after: $cursor) {
+    pullRequests(states: OPEN, first: 100, orderBy: {field: UPDATED_AT, direction: DESC}) {
       nodes {
         number
         url
         title
         isDraft
         author { login }
-        reviews(first: 20, states: [APPROVED, CHANGES_REQUESTED]) {
+        reviews(first: 20, states: [APPROVED]) {
           nodes {
             state
             author { login }
@@ -46,56 +46,30 @@ query($owner: String!, $name: String!, $cursor: String) {
         }
       }
       totalCount
-      pageInfo {
-        hasNextPage
-        endCursor
-      }
     }
   }
 }
 '
 
-# jq filter: process each PR node into a flat object with review stats.
+# jq filter: process each PR node into a flat object.
 # Review dedup: group by reviewer, take the LAST review (most recent) per reviewer.
 jq_filter='
 [.[] | {
   number,
   url,
   title,
-  isDraft,
   author: .author.login,
-  approvals: ([.reviews.nodes | group_by(.author.login)[] | last | select(.state == "APPROVED")] | length),
-  changesRequested: ([.reviews.nodes | group_by(.author.login)[] | last | select(.state == "CHANGES_REQUESTED")] | length)
+  approvedBy: [.reviews.nodes | group_by(.author.login)[] | last | select(.state == "APPROVED") | .author.login]
 }]
 '
 
-all_nodes="[]"
-cursor=""
-total_count=0
+result=$(gh api graphql \
+  -f query="$query" \
+  -f owner="$owner" \
+  -f name="$name")
 
-while true; do
-  cursor_arg=()
-  if [[ -n "$cursor" ]]; then
-    cursor_arg=(-f "cursor=$cursor")
-  fi
-
-  result=$(gh api graphql \
-    -f query="$query" \
-    -f owner="$owner" \
-    -f name="$name" \
-    "${cursor_arg[@]}")
-
-  page_nodes=$(echo "$result" | jq '.data.repository.pullRequests.nodes')
-  total_count=$(echo "$result" | jq '.data.repository.pullRequests.totalCount')
-  has_next=$(echo "$result" | jq -r '.data.repository.pullRequests.pageInfo.hasNextPage')
-  cursor=$(echo "$result" | jq -r '.data.repository.pullRequests.pageInfo.endCursor')
-
-  all_nodes=$(printf '%s\n%s' "$all_nodes" "$page_nodes" | jq -s '.[0] + .[1]')
-
-  if [[ "$has_next" != "true" ]]; then
-    break
-  fi
-done
+all_nodes=$(echo "$result" | jq '.data.repository.pullRequests.nodes')
+total_count=$(echo "$result" | jq '.data.repository.pullRequests.totalCount')
 
 # Filter drafts unless --include-drafts
 if [[ "$include_drafts" == "false" ]]; then
@@ -107,8 +81,8 @@ if [[ "$include_bots" == "false" ]]; then
   all_nodes=$(echo "$all_nodes" | jq '[.[] | select(.author.login | test("\\[bot\\]$|^dependabot$"; "i") | not)]')
 fi
 
-# Process review stats
-processed=$(echo "$all_nodes" | jq "$jq_filter")
+# Process reviews and take first 30
+processed=$(echo "$all_nodes" | jq "$jq_filter | .[:30]")
 
 # Output: { totalCount, prs: [...] }
 jq -n --argjson total "$total_count" --argjson prs "$processed" \
