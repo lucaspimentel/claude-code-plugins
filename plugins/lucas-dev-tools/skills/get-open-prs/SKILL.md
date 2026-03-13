@@ -35,7 +35,7 @@ Execute immediately. Do not ask for confirmation or describe what you will do â€
    {
      "totalCount": 191,
      "prs": [
-       { "number": 123, "url": "...", "title": "...", "author": "login", "approvedBy": ["reviewer1", "reviewer2"] },
+       { "number": 123, "url": "...", "title": "...", "author": "login", "createdAt": "2026-03-01T12:00:00Z", "approvedBy": ["reviewer1", "reviewer2"] },
        ...
      ]
    }
@@ -45,18 +45,27 @@ Execute immediately. Do not ask for confirmation or describe what you will do â€
 
    If the user requested additional filters (by author, label, etc.) that the script doesn't handle, post-filter the JSON results. Interpret the user's natural language request.
 
-4. **Format output**
+4. **Sort results**
+
+   Sort PRs by:
+   1. Number of approvals â€” ascending (fewest approvals first)
+   2. Date â€” ascending (oldest first)
+
+   This surfaces PRs that still need review attention at the top.
+
+5. **Format output**
 
    Display results as a markdown table:
 
    ```
-   | PR | Author | Title | Approved By | URL |
-   |---|---|---|---|---|
-   | #123 | author | Title of the PR | reviewer1, reviewer2 | https://github.com/... |
+   | PR | Author | Title | Approved By | Age | URL |
+   |---|---|---|---|---|---|
+   | #123 | author | Title of the PR | reviewer1, reviewer2 | 3d | https://github.com/... |
    ```
 
    Rules:
    - Author format: plain `login` (no `@` prefix, no parentheses)
    - Approved By column: comma-separated plain `login` names from `approvedBy`, or empty if none
+   - Age column: human-friendly duration since `createdAt` (e.g. `2h`, `3d`, `2w`, `3mo`)
    - End with a summary line: **"N open PRs"** (or **"N open PRs (M total)"** if fewer PRs were returned than `totalCount`)
    - If no results: **"No open PRs found."**

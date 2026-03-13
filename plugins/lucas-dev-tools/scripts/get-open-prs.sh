@@ -5,7 +5,7 @@
 # Usage: get-open-prs.sh <owner/repo> [--include-drafts] [--include-bots]
 #
 # Output per PR:
-#   { number, url, title, author, approvedBy: ["login", ...] }
+#   { number, url, title, author, createdAt, approvedBy: ["login", ...] }
 
 set -euo pipefail
 
@@ -37,6 +37,7 @@ query($owner: String!, $name: String!) {
         url
         title
         isDraft
+        createdAt
         author { login }
         reviews(first: 20, states: [APPROVED]) {
           nodes {
@@ -59,6 +60,7 @@ jq_filter='
   url,
   title,
   author: .author.login,
+  createdAt,
   approvedBy: [.reviews.nodes | group_by(.author.login)[] | last | select(.state == "APPROVED") | .author.login]
 }]
 '
