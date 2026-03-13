@@ -1,8 +1,8 @@
 ---
 name: get-open-prs
-description: "List open pull requests for the current GitHub repository. Use when the user says 'open PRs', 'show PRs', 'list PRs', 'get PRs', 'what PRs are open', 'pending PRs', 'pull requests', 'any open PRs', 'PR list', 'show me the PRs', 'PRs for me to review', 'PRs needing review', 'what needs my review', or any variation of wanting to see open pull requests for a repo."
+description: "Lists open pull requests for the current GitHub repository. This skill should be used when the user says 'open PRs', 'show PRs', 'list PRs', 'get PRs', 'what PRs are open', 'pending PRs', 'pull requests', 'any open PRs', 'PR list', 'show me the PRs', 'PRs for me to review', 'PRs needing review', 'what needs my review', or any variation of wanting to see open pull requests for a repo."
 model: haiku
-allowed-tools: Bash(gh repo view *), Bash(bash *get-open-prs.sh*)
+allowed-tools: Bash(gh repo view *), Bash(bash */scripts/get-open-prs.sh*)
 ---
 
 # get-open-prs
@@ -43,7 +43,7 @@ Execute immediately. Do not ask for confirmation or describe what you will do â€
 
 3. **Apply user filters**
 
-   If the user requested additional filters (by author, label, etc.) that the script doesn't handle, post-filter the JSON results. Interpret the user's natural language request.
+   If the user requested additional filters (by author, label, etc.) that the script doesn't handle, post-filter the parsed JSON `prs` array from step 2. Match fields like `author`, `title`, or `approvedBy` against the user's natural language request.
 
 4. **Sort results**
 
@@ -58,9 +58,9 @@ Execute immediately. Do not ask for confirmation or describe what you will do â€
    Display results as a markdown table:
 
    ```
-   | PR | Author | Title | Approved By | Age | URL |
-   |---|---|---|---|---|---|
-   | #123 | author | Title of the PR | reviewer1, reviewer2 | 3d | https://github.com/... |
+   | PR | Author | Title | Approved By | Age |
+   |---|---|---|---|---|
+   | [#123](https://github.com/...) | author | Title of the PR | reviewer1, reviewer2 | 3d |
    ```
 
    Rules:
