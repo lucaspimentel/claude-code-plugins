@@ -46,10 +46,14 @@ if [ "$DISABLE_REDUNDANT_CD_RULE" != "1" ] && echo "$command" | grep -qE '(cd\s+
 fi
 
 # Rule: tmp-path (BLOCK) — Git Bash on Windows only
-# /tmp in Git Bash is a virtual path that doesn't map to the real Windows temp dir.
-if [ "$DISABLE_TMP_PATH_RULE" != "1" ] && [ "$(uname -o 2>/dev/null)" = "Msys" ] && echo "$command" | grep -qE '(^|[[:space:]|;|&|>|<|"'"'"'])/tmp($|[[:space:]|/|"'"'"'])'; then
+# /tmp, $TMP, and $TEMP in Git Bash are virtual paths that don't map to the real Windows temp dir.
+# Allow cygpath commands that convert these to Windows paths (that's the recommended fix).
+# shellcheck disable=SC2016
+if [ "$DISABLE_TMP_PATH_RULE" != "1" ] && [ "$(uname -o 2>/dev/null)" = "Msys" ] && \
+   echo "$command" | grep -qE '(^|[[:space:];|&><"'"'"'])((/tmp($|[[:space:]/"'"'"']))|(\$(TMP|TEMP)\b)|(\$\{(TMP|TEMP)\}))' && \
+   ! echo "$command" | grep -qE 'cygpath\s+(-w\s+)?(/tmp|\$TMP|\$TEMP|\$\{TMP\}|\$\{TEMP\})'; then
   tmp_win=$(cygpath -w "$TMP" 2>/dev/null || echo '%TMP%')
-  echo "Do not use /tmp on Git Bash for Windows. It is a virtual path that doesn't map to the real Windows temp directory. Use the Windows temp path instead: $tmp_win (or run \`cygpath -w \$TMP\` to get it)." >&2
+  echo "Do not use /tmp, \$TMP, or \$TEMP on Git Bash for Windows. These are virtual paths that don't map to the real Windows temp directory. Use the Windows temp path instead: $tmp_win (or run \`cygpath -w \$TMP\` to get it)." >&2
   exit 2
 fi
 
