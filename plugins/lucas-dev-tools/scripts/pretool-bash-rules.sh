@@ -9,6 +9,7 @@
 #   DISABLE_GH_API_SLASH_RULE
 #   DISABLE_REDUNDANT_CD_RULE
 #   DISABLE_1PASSWORD_RULE
+#   DISABLE_TMP_PATH_RULE
 
 input=$(cat)
 command=$(echo "$input" | jq -r '.tool_input.command // empty')
@@ -42,6 +43,14 @@ if [ "$DISABLE_REDUNDANT_CD_RULE" != "1" ] && echo "$command" | grep -qE '(cd\s+
     echo "Redundant \`cd\` detected. Current directory ($cwd) already matches target ($target). Don't use \`cd <path> && <command>\` or \`git -C <path> <command>\` when already in the target directory." >&2
     exit 2
   fi
+fi
+
+# Rule: tmp-path (BLOCK) — Git Bash on Windows only
+# /tmp in Git Bash is a virtual path that doesn't map to the real Windows temp dir.
+if [ "$DISABLE_TMP_PATH_RULE" != "1" ] && [ "$(uname -o 2>/dev/null)" = "Msys" ] && echo "$command" | grep -qE '(^|[[:space:]|;|&|>|<|"'"'"'])/tmp($|[[:space:]|/|"'"'"'])'; then
+  tmp_win=$(cygpath -w "$TMP" 2>/dev/null || echo '%TMP%')
+  echo "Do not use /tmp on Git Bash for Windows. It is a virtual path that doesn't map to the real Windows temp directory. Use the Windows temp path instead: $tmp_win (or run \`cygpath -w \$TMP\` to get it)." >&2
+  exit 2
 fi
 
 # Rule: 1password-commit-retry (WARN)

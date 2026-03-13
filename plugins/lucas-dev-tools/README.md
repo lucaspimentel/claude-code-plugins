@@ -1,4 +1,4 @@
-# lucas-dev-tools v1.8.6
+# lucas-dev-tools v1.9.0
 
 Developer workflow utilities for day-to-day use inside Claude Code.
 
@@ -29,4 +29,5 @@ A PreToolUse hook validates Bash commands before execution:
 |---|---|---|---|
 | `gh-api-leading-slash` | Block | `DISABLE_GH_API_SLASH_RULE=1` | Reject `gh api /...` (leading slash is wrong) |
 | `redundant-cd` | Block | `DISABLE_REDUNDANT_CD_RULE=1` | Reject `cd <path> &&` or `git -C <path>` when already in that directory |
+| `tmp-path` | Block | `DISABLE_TMP_PATH_RULE=1` | Reject `/tmp` usage on Git Bash for Windows; suggest real Windows temp path via `cygpath -w $TMP` |
 | `1password-commit-retry` | Warn | `DISABLE_1PASSWORD_RULE=1` | Remind not to retry if `git commit` fails with a 1Password error |
