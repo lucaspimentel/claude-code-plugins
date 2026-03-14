@@ -15,7 +15,6 @@ See [installation instructions](../../README.md#installation).
 | `update-docs` | Update project documentation based on recent changes |
 | `update-pr-description` | Update the PR title and description to reflect the current changes |
 | `review-pr` | Review a pull request for issues and feedback |
-| `plan-and-execute` | Plan and implement a feature or bug fix |
 | `ship` | Run one or more release actions: version, docs, commit, tag, push |
 | `whats-next` | Show the next task from TODO.md and plan/execute it |
 | `add-todo` | Add new tasks to TODO.md with research context |

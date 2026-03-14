@@ -13,4 +13,4 @@ Use the AskUserQuestion tool to present the numbered list and ask the user which
 
 ## Step 2 — Plan and execute
 
-Run the /plan-and-execute skill with the selected task as the argument.
+Enter plan mode to create an implementation plan for the selected task. Wait for user approval, then implement.
