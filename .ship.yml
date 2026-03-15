@@ -1,0 +1,40 @@
+targets:
+  lucas-dev-tools:
+    actions: [version, changelog, docs, commit, push]
+    version-files:
+      - .claude-plugin/marketplace.json
+      - README.md
+      - plugins/lucas-dev-tools/README.md
+    changelog-file: plugins/lucas-dev-tools/CHANGELOG.md
+
+  windows-notify:
+    actions: [version, changelog, docs, commit, push]
+    version-files:
+      - .claude-plugin/marketplace.json
+      - README.md
+      - plugins/windows-notify/README.md
+    changelog-file: plugins/windows-notify/CHANGELOG.md
+
+  chezmoi:
+    actions: [version, changelog, docs, commit, push]
+    version-files:
+      - .claude-plugin/marketplace.json
+      - README.md
+      - plugins/chezmoi/README.md
+    changelog-file: plugins/chezmoi/CHANGELOG.md
+
+  windows-terminal:
+    actions: [version, changelog, docs, commit, push]
+    version-files:
+      - .claude-plugin/marketplace.json
+      - README.md
+      - plugins/windows-terminal/README.md
+    changelog-file: plugins/windows-terminal/CHANGELOG.md
+
+  linters:
+    actions: [version, changelog, docs, commit, push]
+    version-files:
+      - .claude-plugin/marketplace.json
+      - README.md
+      - plugins/linters/README.md
+    changelog-file: plugins/linters/CHANGELOG.md
