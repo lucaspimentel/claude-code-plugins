@@ -3,7 +3,6 @@ name: ship
 description: "Run one or more release actions: version, changelog, docs, commit, tag, push, watch. With no arguments, auto-detects needed actions from repo state and asks for confirmation. Use when the user says 'ship', 'ship it', 'commit and push', 'version and push', 'tag and push', 'bump version and push', 'version commit push', 'save everything and push', 'release', 'cut a release', 'publish', 'ship and watch', 'push and watch CI', 'tag and watch', 'deploy', or any variation of wanting to run a combination of version/docs/commit/tag/push/watch steps."
 argument-hint: "[version] [changelog] [docs] [commit] [tag] [push] [watch] [major|minor|patch|x.y.z]"
 allowed-tools: Bash(git status *), Bash(git log *), Bash(git tag --list *), Bash(git rev-parse *), Bash(git diff *), Bash(gh run list *), Bash(gh run watch *), Bash(sleep *)
-model: sonnet
 ---
 
 You are a release automation skill. Parse the user's arguments, then run the requested actions in canonical order.
