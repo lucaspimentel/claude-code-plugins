@@ -1,7 +1,7 @@
 ---
 name: ship
-description: "Run one or more release actions: version, docs, commit, tag, push, watch. With no arguments, auto-detects needed actions from repo state and asks for confirmation. Use when the user says 'ship', 'ship it', 'commit and push', 'version and push', 'tag and push', 'bump version and push', 'version commit push', 'save everything and push', 'release', 'cut a release', 'publish', 'ship and watch', 'push and watch CI', 'tag and watch', 'deploy', or any variation of wanting to run a combination of version/docs/commit/tag/push/watch steps."
-argument-hint: "[version] [docs] [commit] [tag] [push] [watch] [major|minor|patch|x.y.z]"
+description: "Run one or more release actions: version, changelog, docs, commit, tag, push, watch. With no arguments, auto-detects needed actions from repo state and asks for confirmation. Use when the user says 'ship', 'ship it', 'commit and push', 'version and push', 'tag and push', 'bump version and push', 'version commit push', 'save everything and push', 'release', 'cut a release', 'publish', 'ship and watch', 'push and watch CI', 'tag and watch', 'deploy', or any variation of wanting to run a combination of version/docs/commit/tag/push/watch steps."
+argument-hint: "[version] [changelog] [docs] [commit] [tag] [push] [watch] [major|minor|patch|x.y.z]"
 allowed-tools: Bash(git status *), Bash(git log *), Bash(git tag --list *), Bash(git rev-parse *), Bash(git diff *), Bash(gh run list *), Bash(gh run watch *), Bash(sleep *)
 model: sonnet
 ---
@@ -12,7 +12,7 @@ You are a release automation skill. Parse the user's arguments, then run the req
 
 Extract from the skill arguments:
 
-- **Action keywords**: `version`, `docs`, `commit`, `tag`, `push`, `watch` (case-insensitive)
+- **Action keywords**: `version`, `changelog`, `docs`, `commit`, `tag`, `push`, `watch` (case-insensitive)
 - **Version specifier** (optional, only relevant when `version` is requested): one of
   - An explicit semver version like `2.0.0` or `1.5.0`
   - A semver keyword: `major`, `minor`, `patch`
@@ -29,9 +29,11 @@ Present the detected actions as a **multi-select checklist** (using `AskUserQues
 
 If no actions are detected, tell the user everything is up to date and stop.
 
-**Implicit commit**: If any action that modifies files is requested (`version`, `docs`) but `commit` is not explicitly listed, add `commit` automatically — those file changes need to be committed.
+**Implicit changelog**: If `version` is requested but `changelog` is not explicitly listed, add `changelog` automatically — version bumps should be logged.
 
-Reorder the requested actions into **canonical order**: version → docs → commit → tag → push → watch. Always execute in this order regardless of argument order.
+**Implicit commit**: If any action that modifies files is requested (`version`, `changelog`, `docs`) but `commit` is not explicitly listed, add `commit` automatically — those file changes need to be committed.
+
+Reorder the requested actions into **canonical order**: version → changelog → docs → commit → tag → push → watch. Always execute in this order regardless of argument order.
 
 ## 2 — Early version resolution (if version requested)
 
@@ -70,6 +72,10 @@ Update the version string in **all** of these files (if they exist):
 - `*.csproj` / `Directory.*.props` — `<Version>` or `<PackageVersion>` elements
 
 Glob for these files to find them. After editing, briefly list which files were updated.
+
+### changelog
+
+Delegate to the `update-changelog` skill. Pass the resolved version if available.
 
 ### docs
 
