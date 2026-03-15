@@ -1,5 +1,10 @@
 # Changelog
 
+## [1.13.3] - 2026-03-15
+
+### Fixed
+- Fix jq escape issue in update-actions skill: replace `\\.` with `[.]` to avoid misrendered escape sequences
+
 ## [1.13.2] - 2026-03-15
 
 ### Changed

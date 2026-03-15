@@ -29,13 +29,13 @@ For each unique action, determine the latest version tag within the same major v
 Extract the major version from the current ref (e.g. `@v4` → major `4`, `@v3.2.1` → major `3`). Then find the latest release whose tag matches the same major version:
 
 ```bash
-gh api repos/{owner}/{repo}/releases --jq '[.[] | select(.tag_name | test("^v{major}(\\.|$)"))][0].tag_name'
+gh api repos/{owner}/{repo}/releases --jq '[.[] | select(.tag_name | test("^v{major}([.]|$)"))][0].tag_name'
 ```
 
 If no matching release exists, fall back to listing tags:
 
 ```bash
-gh api repos/{owner}/{repo}/tags --jq '[.[] | select(.name | test("^v{major}(\\.|$)"))][0].name'
+gh api repos/{owner}/{repo}/tags --jq '[.[] | select(.name | test("^v{major}([.]|$)"))][0].name'
 ```
 
 If both return empty, skip the action and report "no matching releases found" in the results table.
