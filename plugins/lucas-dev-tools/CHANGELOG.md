@@ -1,5 +1,10 @@
 # Changelog
 
+## [1.13.2] - 2026-03-15
+
+### Changed
+- Add allowed-tools to update-actions skill
+
 ## [1.13.1] - 2026-03-15
 
 ### Changed
