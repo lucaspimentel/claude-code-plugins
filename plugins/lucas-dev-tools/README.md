@@ -16,7 +16,7 @@ See [installation instructions](../../README.md#installation).
 | `update-pr-description` | Update the PR title and description to reflect the current changes |
 | `review-pr` | Review a pull request for issues and feedback |
 | `ship` | Run release actions: version, changelog, docs, commit, tag, push, watch, release |
-| `update-actions` | Update and pin GitHub Actions in workflow files to commit SHAs |
+| `update-github-actions` | Update and pin GitHub Actions in workflow files to commit SHAs |
 | `update-changelog` | Manage CHANGELOG.md files and GitHub releases |
 | `whats-next` | Show the next task from TODO.md and plan/execute it |
 | `add-todo` | Add new tasks to TODO.md with research context |
