@@ -7,6 +7,59 @@ allowed-tools: Bash(git log *), Bash(git tag *), Bash(git diff *), Bash(gh relea
 
 Manage CHANGELOG.md files and GitHub releases — add new entries, backfill missing versions, and sync release notes.
 
+## Formatting
+
+### CHANGELOG.md format
+
+Follow [Keep a Changelog](https://keepachangelog.com/) with these specific conventions:
+
+```markdown
+# Changelog
+
+## [1.2.0] - 2026-03-15
+
+### Added
+- Add git stage/unstage actions to action palette
+- Add git commit via action palette
+
+### Fixed
+- Fix Ctrl+R refresh not reloading git status
+- Skip .git and hidden dirs in file finder
+
+### Changed
+- Clean up keybindings and action names
+
+## [1.1.0] - 2026-03-14
+...
+```
+
+Rules:
+- **File heading**: `# Changelog` (nothing else on the line)
+- **Version heading**: `## [x.y.z] - YYYY-MM-DD` — square brackets around version, space-dash-space before date
+- **Unreleased heading**: `## [Unreleased]` — no date
+- **Category headings**: `### Added`, `### Changed`, `### Fixed`, `### Removed` — only include categories that have entries
+- **Category order**: Added → Changed → Fixed → Removed
+- **Entry format**: `- Verb-led phrase` — start with present-tense verb, no trailing period, no sub-bullets
+- **Verb matches category**:
+  - Added → "Add ...", "Enable ...", "Introduce ..."
+  - Changed → "Update ...", "Move ...", "Use ...", "Rename ...", "Convert ..."
+  - Fixed → "Fix ...", "Correct ...", "Prevent ..."
+  - Removed → "Remove ...", "Delete ...", "Drop ..."
+- **Whitespace**: one blank line between version sections, one blank line between category sections, no blank lines between entries within a category, no trailing blank line at end of file
+
+### GitHub release format
+
+Release notes use the same content as the CHANGELOG.md entry but **without** the version heading (`## [x.y.z] - ...`). Include all categories present in the changelog entry. Keep the category headings and entries as-is:
+
+```markdown
+### Added
+- Add git stage/unstage actions to action palette
+- Add git commit via action palette
+
+### Fixed
+- Fix Ctrl+R refresh not reloading git status
+```
+
 ## Modes of operation
 
 This skill operates in two modes based on user intent:
@@ -31,7 +84,7 @@ Two sources, in priority order:
 1. **User-provided description** — if the user described the changes, use that directly
 2. **Git history** — if no description provided, identify changes since the last version:
    - Read the top entry in CHANGELOG.md to get the latest version number. If the changelog is empty or has only a header, treat it as a fresh changelog with no prior version.
-   - Run `git log v{latest}..HEAD --oneline` to list commits since that version (if no matching tag exists, use the entry's date with `--since`; if no prior version at all, use the full log)
+   - Run `git log v{latest}..HEAD --oneline` to list commits since that version (if no matching tag exists, use the entry's date with `--since=YYYY-MM-DD`; if no prior version at all, use the full log)
    - Summarize the changes into concise bullet points
 
 ### Step 3 — Determine version and date
@@ -56,19 +109,7 @@ If the user provided pre-categorized entries, respect their categorization. Only
 
 ### Step 5 — Insert the entry
 
-Insert the new version section at the top of the changelog (after the `# Changelog` heading), preserving the existing format. Example:
-
-```markdown
-## [1.5.0] - 2026-03-15
-
-### Added
-- Add update-actions skill for pinning GitHub Actions to commit SHAs
-
-### Fixed
-- Fix tag resolution for annotated tags
-```
-
-Use the Edit tool to insert, not a full file rewrite.
+Insert the new version section at the top of the changelog (after the `# Changelog` heading or after `## [Unreleased]` if present), following the formatting rules above. Use the Edit tool to insert, not a full file rewrite. If the file was just created (empty or header-only), writing the full file is acceptable.
 
 ### Step 6 — GitHub release
 
@@ -84,8 +125,8 @@ If releases exist or the user explicitly asked to create/update a release:
 
 - **Existing release**: `gh release edit v{version} --notes "..."`
 - **New release**: `gh release create v{version} --title "v{version}" --notes "..."`
-- Use the changelog entry content (bullet points only, without the version heading) as release notes
-- If the version's tag doesn't exist yet, inform the user that the tag must be created first
+- Use the GitHub release format described in the Formatting section above
+- If the version's tag doesn't exist yet, inform the user that the tag must be created first (tags should be created from a specific commit, not implicitly by `gh release create`)
 
 ## Backfill mode
 

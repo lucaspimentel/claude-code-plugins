@@ -1,5 +1,15 @@
 # Changelog
 
+## [1.13.4] - 2026-03-15
+
+### Added
+- Add `release` action to ship skill for updating GitHub releases with changelog content after CI
+- Add consistent formatting rules to update-changelog skill for CHANGELOG.md and GitHub releases
+
+### Changed
+- Improve ship skill auto-detect logic and release action delegation instructions
+- Add edge case handling to update-changelog skill (ISO date format, new file writes, tag rationale)
+
 ## [1.13.3] - 2026-03-15
 
 ### Fixed

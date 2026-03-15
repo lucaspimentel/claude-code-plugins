@@ -1,4 +1,4 @@
-# lucas-dev-tools v1.13.3
+# lucas-dev-tools v1.13.4
 
 Developer workflow utilities for day-to-day use inside Claude Code.
 
@@ -15,7 +15,9 @@ See [installation instructions](../../README.md#installation).
 | `update-docs` | Update project documentation based on recent changes |
 | `update-pr-description` | Update the PR title and description to reflect the current changes |
 | `review-pr` | Review a pull request for issues and feedback |
-| `ship` | Run one or more release actions: version, docs, commit, tag, push |
+| `ship` | Run release actions: version, changelog, docs, commit, tag, push, watch, release |
+| `update-actions` | Update and pin GitHub Actions in workflow files to commit SHAs |
+| `update-changelog` | Manage CHANGELOG.md files and GitHub releases |
 | `whats-next` | Show the next task from TODO.md and plan/execute it |
 | `add-todo` | Add new tasks to TODO.md with research context |
 | `get-open-prs` | List open PRs for the current GitHub repo |
