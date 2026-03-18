@@ -1,5 +1,20 @@
 # Changelog
 
+## [1.14.1] - 2026-03-17
+
+### Changed
+- Improve whats-next skill: use `/plan` for planning, add fallback ordering, conditional wrap-up steps
+- Improve add-todo skill: conditional research, duplicate detection, task granularity guidance
+- Update descriptions for whats-next and add-todo skills for better triggering accuracy
+
+## [1.14.0] - 2026-03-15
+
+### Added
+- Add `.ship.yml` config file for config-driven ship skill
+
+### Changed
+- Rename update-actions skill to update-github-actions
+
 ## [1.13.4] - 2026-03-15
 
 ### Added
