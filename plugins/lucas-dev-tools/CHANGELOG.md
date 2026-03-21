@@ -1,5 +1,10 @@
 # Changelog
 
+## [1.14.2] - 2026-03-21
+
+### Changed
+- Add `model: sonnet` to medium-complexity skills: add-todo, whats-next, update-docs, update-pr-description, git-commit, update-github-actions
+
 ## [1.14.1] - 2026-03-17
 
 ### Changed
