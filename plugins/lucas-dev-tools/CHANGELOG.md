@@ -1,5 +1,10 @@
 # Changelog
 
+## [1.14.3] - 2026-03-21
+
+### Removed
+- Revert model hints added in v1.14.2
+
 ## [1.14.1] - 2026-03-17
 
 ### Changed
