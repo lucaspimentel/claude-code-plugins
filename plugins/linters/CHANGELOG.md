@@ -1,5 +1,10 @@
 # Changelog
 
+## [1.1.0] - 2026-03-22
+
+### Added
+- `fix-cslint` skill: bulk-fix cslint warnings, committing fixes rule-by-rule from most common to least
+
 ## [1.0.2] - 2026-03-06
 
 ### Changed

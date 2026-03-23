@@ -1,6 +1,12 @@
-# linters v1.0.2
+# linters v1.1.0
 
-Runs linters on edited files automatically via PostToolUse hooks. Warns about missing linters on session start. No skills — works automatically once installed.
+Runs linters on edited files automatically via PostToolUse hooks. Warns about missing linters on session start.
+
+## Skills
+
+| Skill | Description |
+|---|---|
+| `fix-cslint` | Bulk-fix cslint warnings, committing fixes rule-by-rule from most common to least |
 
 See [installation instructions](../../README.md#installation).
 
