@@ -1,5 +1,10 @@
 # Changelog
 
+## [1.1.1] - 2026-03-22
+
+### Changed
+- `fix-cslint` skill: add `allowed-tools` for cslint commands, default to cwd when no path specified
+
 ## [1.1.0] - 2026-03-22
 
 ### Added

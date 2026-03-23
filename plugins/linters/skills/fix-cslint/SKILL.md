@@ -2,6 +2,7 @@
 name: fix-cslint
 description: "Bulk-fix cslint warnings in a C# codebase. Use when the user says 'fix cslint', 'fix lint warnings', 'fix cs lint', 'fix linter issues', 'clean up cslint', 'fix cslint warnings', 'run cslint and fix', 'fix all lint errors', 'fix C# lint', 'bulk fix lint', 'fix all cslint', 'fix formatting warnings', 'fix style warnings', 'fix naming violations', 'fix code style', or any variation of wanting to fix cslint diagnostics across a C# repo. Not for non-C# linters. Accepts an optional path argument (defaults to current directory)."
 argument-hint: "[path] [--semantic]"
+allowed-tools: Bash(cslint *), Bash(cslint)
 ---
 
 Bulk-fix cslint warnings in a C# codebase, committing fixes rule-by-rule from most common to least.
@@ -18,7 +19,7 @@ scoop install cslint
 
 ### 1. Survey
 
-Run `cslint --summary <path>` to get the rule breakdown sorted by count.
+Run `cslint --summary [path]` to get the rule breakdown sorted by count. Only pass the path if the user specified one; cslint defaults to the current directory.
 
 If the user passed `--semantic`, add that flag to all cslint commands throughout.
 
@@ -30,9 +31,9 @@ Show the user the summary table and total count. Ask them to confirm before proc
 
 Skip any rules the user excluded. For each remaining rule (starting with the highest count):
 
-1. Run `cslint --rules <RULE_ID> --format json <path>` to get all violations with file paths and line numbers
+1. Run `cslint --rules <RULE_ID> --format json [path]` to get all violations with file paths and line numbers
 2. Read the affected files and fix all violations for that rule
-3. Re-run `cslint --rules <RULE_ID> --format json <path>` to verify zero remaining violations for that rule
+3. Re-run `cslint --rules <RULE_ID> --format json [path]` to verify zero remaining violations for that rule
 4. If violations remain, fix them and re-verify (max 3 attempts per rule, then move on and warn the user)
 5. Stage and commit: `"Fix <RULE_ID>: <RuleName> (<count> violations)"` — get the rule name from the `"name"` field in `--format json` output or `--list-rules`. If `git commit` fails with "1Password: agent returned an error", STOP immediately — the user is AFK and 1Password awaits authentication. Do not retry.
 
@@ -41,12 +42,12 @@ Skip any rules the user excluded. For each remaining rule (starting with the hig
 Once the remaining rules each have **5 or fewer violations**, group all remaining fixes into a single commit:
 
 1. Fix all remaining rules together
-2. Re-run `cslint --summary <path>` to verify
+2. Re-run `cslint --summary [path]` to verify
 3. Commit: `"Fix remaining cslint warnings (<total_count> violations across <rule_count> rules)"`
 
 ### 4. Final verification
 
-Run `cslint <path>` (with `--semantic` if the user requested it) and confirm zero violations.
+Run `cslint [path]` (omit path if none was specified) (with `--semantic` if the user requested it) and confirm zero violations.
 
 If any remain, report them to the user — they may be false positives or require manual intervention.
 
