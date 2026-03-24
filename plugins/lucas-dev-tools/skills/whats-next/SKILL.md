@@ -13,7 +13,7 @@ Use the AskUserQuestion tool to present the numbered list and ask the user which
 
 ## Step 2 — Plan and execute
 
-Use `/plan` to create an implementation plan for the selected task. Include tests in the plan when the task involves code changes. Wait for user approval, then implement.
+Use the EnterPlanMode tool to create an implementation plan for the selected task. Include tests in the plan when the task involves code changes. Wait for user approval, then switch back to execution mode with ExitPlanMode and implement.
 
 ## Step 3 — Wrap up
 
