@@ -1,5 +1,10 @@
 # Changelog
 
+## [1.1.2] - 2026-04-22
+
+### Changed
+- Show which linter is running in the spinner (cslint, PSScriptAnalyzer, shellcheck)
+
 ## [1.1.1] - 2026-03-22
 
 ### Changed

@@ -20,7 +20,7 @@ Priority legend: **P1** = high value / low effort, **P2** = medium, **P3** = nic
     - `plugins/lucas-dev-tools/.claude-plugin/plugin.json` currently runs `pretool-bash-rules.sh` on *every* Bash call. The script mostly cares about `cd` / `git -C` patterns.
     - Scope the hook with `if: "Bash(cd *)"` / `if: "Bash(git -C *)"` (tool-event hooks only) so it short-circuits for non-matching commands.
     - Docs: https://code.claude.com/docs/en/hooks (Common hook fields → `if`)
-- [ ] Add `statusMessage` to linter hooks for better spinner UX
+- [x] Add `statusMessage` to linter hooks for better spinner UX
     - `plugins/linters/.claude-plugin/plugin.json` PostToolUse hooks show a generic spinner. Add e.g. `"statusMessage": "Running cslint..."` per hook.
     - Docs: https://code.claude.com/docs/en/hooks (Common hook fields → `statusMessage`)
 - [ ] Convert the `1password-commit-retry` rule from PreToolUse to PostToolUseFailure
