@@ -3,6 +3,8 @@ name: review-pr
 description: "Review a pull request for issues and feedback."
 when_to_use: "Use when the user says 'review this PR', 'check this PR', 'look at PR changes', 'review the diff', 'what do you think of this PR', 'post review comments', 'any issues with this PR', 'what changed in this PR', 'are there problems with these changes', 'critique the diff', or any variation of wanting PR feedback or code review."
 disable-model-invocation: true
+context: fork
+agent: Explore
 ---
 
 Review a pull request and provide detailed feedback on the changes.

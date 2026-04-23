@@ -1,5 +1,10 @@
 # Changelog
 
+## [1.14.10] - 2026-04-22
+
+### Changed
+- Fork the `review-pr` and `update-docs` skills into isolated subagents (Explore / general-purpose) so their read-heavy work doesn't pollute the main conversation context
+
 ## [1.14.9] - 2026-04-22
 
 ### Changed

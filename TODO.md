@@ -26,9 +26,9 @@ Priority legend: **P1** = high value / low effort, **P2** = medium, **P3** = nic
 
 ## Medium-impact refactors (P2)
 
-- [ ] Move heavy research skills into forked subagent contexts with `context: fork` + `agent: Explore`
-    - Candidates: `review-pr`, `update-docs`, `update-github-actions`, `update-changelog`, and Phase 1 of `address-pr-comments`.
-    - Avoids polluting the main conversation context with grep/glob/read output.
+- [x] Move heavy research skills into forked subagent contexts with `context: fork` + `agent: Explore`
+    - Forked `review-pr` (Explore) and `update-docs` (general-purpose, since Explore is read-only and update-docs writes files).
+    - Scope narrowed: `update-github-actions`, `update-changelog`, and `address-pr-comments` intentionally left unforked because they have user-in-the-loop `AskUserQuestion` steps that don't survive the fork boundary.
     - Docs: https://code.claude.com/docs/en/skills#run-skills-in-a-subagent
 - [ ] Introduce `agents/` directory with reusable subagents
     - Zero plugins ship agents today. A shared `pr-reviewer`, `doc-writer`, or `changelog-writer` agent would deduplicate logic across `review-pr`, `update-docs`, `update-changelog`.
