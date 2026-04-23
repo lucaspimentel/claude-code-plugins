@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.15.1] - 2026-04-23
+
+### Fixed
+- Mark `posttool-1password-retry.sh` hook script as executable so it runs on systems that honor the exec bit (macOS, Linux, WSL)
+- Mark `get-open-prs.sh` as executable for consistency with its `#!/bin/bash` shebang
+
 ## [1.15.0] - 2026-04-23
 
 ### Changed
