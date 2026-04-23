@@ -68,9 +68,20 @@ if ($ancestorHwnd -ne [IntPtr]::Zero -and -not $isForeground) {
 
 $aumid = "ClaudeCode.Notifications"
 
+$eventDefaults = @{
+    "Stop"          = @{ title = "Turn complete";  message = "Claude finished responding" }
+    "StopFailure"   = @{ title = "Turn failed";    message = "Claude hit an API error" }
+    "SubagentStop"  = @{ title = "Subagent done";  message = "A subagent finished" }
+    "TaskCompleted" = @{ title = "Task completed"; message = "A task was marked complete" }
+}
+$hookEvent      = $data.hook_event_name
+$defaults       = $eventDefaults[$hookEvent]
+$defaultTitle   = if ($defaults) { $defaults.title }   else { "Claude Code" }
+$defaultMessage = if ($defaults) { $defaults.message } else { "Needs your attention" }
+
 $robot   = [char]::ConvertFromUtf32(0x1F916)
-$title   = if ($data.title)   { "$robot $($data.title)" } else { "$robot Claude Code" }
-$message = if ($data.message) { $data.message } else { "Needs your attention" }
+$title   = if ($data.title)   { "$robot $($data.title)" } else { "$robot $defaultTitle" }
+$message = if ($data.message) { $data.message }           else { $defaultMessage }
 
 [Windows.UI.Notifications.ToastNotificationManager, Windows.UI.Notifications, ContentType = WindowsRuntime] | Out-Null
 [Windows.Data.Xml.Dom.XmlDocument, Windows.Data.Xml.Dom.XmlDocument, ContentType = WindowsRuntime] | Out-Null

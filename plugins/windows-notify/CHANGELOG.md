@@ -1,5 +1,10 @@
 # Changelog
 
+## [1.2.6] - 2026-04-22
+
+### Added
+- Add toasts for Stop, StopFailure, SubagentStop, and TaskCompleted hook events
+
 ## [1.2.5] - 2026-03-06
 
 ### Added

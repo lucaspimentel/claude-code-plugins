@@ -40,7 +40,7 @@ Priority legend: **P1** = high value / low effort, **P2** = medium, **P3** = nic
     - `ship/SKILL.md`, `update-changelog/SKILL.md`, `address-pr-comments/SKILL.md` are all well over the recommended 500-line ceiling for SKILL.md.
     - Split into `reference.md` / `examples.md` siblings and link from SKILL.md so details only load when needed.
     - Docs: https://code.claude.com/docs/en/skills#add-supporting-files
-- [ ] Expand `windows-notify` to fire on more lifecycle events
+- [x] Expand `windows-notify` to fire on more lifecycle events
     - Currently only `Notification` (permission_prompt|idle_prompt) + `SessionStart` registration.
     - Add `Stop`, `StopFailure`, `SubagentStop`, and `TaskCompleted` handlers so toasts cover "done" and "errored" cases, not just "waiting on user".
     - Affected: `plugins/windows-notify/.claude-plugin/plugin.json`.
