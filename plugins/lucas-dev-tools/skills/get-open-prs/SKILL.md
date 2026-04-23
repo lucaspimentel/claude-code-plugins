@@ -1,6 +1,7 @@
 ---
 name: get-open-prs
-description: "Lists open pull requests for the current GitHub repository. This skill should be used when the user says 'open PRs', 'show PRs', 'list PRs', 'get PRs', 'what PRs are open', 'pending PRs', 'pull requests', 'any open PRs', 'PR list', 'show me the PRs', 'PRs for me to review', 'PRs needing review', 'what needs my review', or any variation of wanting to see open pull requests for a repo."
+description: "Lists open pull requests for the current GitHub repository."
+when_to_use: "Use when the user says 'open PRs', 'show PRs', 'list PRs', 'get PRs', 'what PRs are open', 'pending PRs', 'pull requests', 'any open PRs', 'PR list', 'show me the PRs', 'PRs for me to review', 'PRs needing review', 'what needs my review', or any variation of wanting to see open pull requests for a repo."
 model: haiku
 allowed-tools: Bash(gh repo view *), Bash(bash */scripts/get-open-prs.sh*)
 ---

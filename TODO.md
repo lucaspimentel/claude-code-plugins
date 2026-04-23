@@ -6,7 +6,7 @@ Priority legend: **P1** = high value / low effort, **P2** = medium, **P3** = nic
 
 ## Quick wins (P1)
 
-- [ ] Split bloated skill descriptions into `description` + `when_to_use` across `lucas-dev-tools` skills
+- [x] Split bloated skill descriptions into `description` + `when_to_use` across `lucas-dev-tools` skills
     - Current descriptions cram "use when the user says X, Y, Z..." into `description`, eating the 1,536-char cap and risking truncation when many skills are installed.
     - Move trigger phrases to the new `when_to_use` frontmatter field; keep `description` short and action-focused.
     - Affected files: `plugins/lucas-dev-tools/skills/*/SKILL.md` (esp. `address-pr-comments`, `add-todo`, `ship`, `update-changelog`, `update-github-actions`, `whats-next`, `update-pr-description`, `review-pr`).

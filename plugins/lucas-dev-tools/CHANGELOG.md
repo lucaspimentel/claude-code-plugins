@@ -1,5 +1,10 @@
 # Changelog
 
+## [1.14.9] - 2026-04-22
+
+### Changed
+- Split each skill's `description` into separate `description` + `when_to_use` frontmatter fields so action-focused text comes first and trigger phrases are scoped separately
+
 ## [1.14.8] - 2026-04-22
 
 ### Changed
