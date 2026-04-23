@@ -6,6 +6,7 @@ Personal [Claude Code](https://claude.ai/code) plugin marketplace by Lucas Pimen
 
 | Plugin | Version | Description |
 |---|---|---|
+| [atlassian-cli](plugins/atlassian-cli/README.md) | 1.0.0 | Atlassian CLI (`acli`) usage for Jira and Confluence |
 | [chezmoi](plugins/chezmoi/README.md) | 1.0.5 | Chezmoi dotfile management and diff resolution |
 | [linters](plugins/linters/README.md) | 1.1.4 | Auto-lint edited files via PostToolUse hooks |
 | [lucas-dev-tools](plugins/lucas-dev-tools/README.md) | 1.14.10 | Developer workflow utilities for day-to-day use |
@@ -24,6 +25,7 @@ Personal [Claude Code](https://claude.ai/code) plugin marketplace by Lucas Pimen
 2. Install a plugin:
    ```sh
    claude plugin install lucas-dev-tools@lucasp-claude-plugins
+   claude plugin install atlassian-cli@lucasp-claude-plugins
    claude plugin install chezmoi@lucasp-claude-plugins
    claude plugin install windows-notify@lucasp-claude-plugins
    claude plugin install linters@lucasp-claude-plugins
@@ -40,6 +42,7 @@ Personal [Claude Code](https://claude.ai/code) plugin marketplace by Lucas Pimen
 2. Install a plugin:
    ```
    /plugin install lucas-dev-tools@lucasp-claude-plugins
+   /plugin install atlassian-cli@lucasp-claude-plugins
    /plugin install chezmoi@lucasp-claude-plugins
    /plugin install windows-notify@lucasp-claude-plugins
    /plugin install linters@lucasp-claude-plugins
