@@ -33,7 +33,7 @@ Priority legend: **P1** = high value / low effort, **P2** = medium, **P3** = nic
 - [ ] Introduce `agents/` directory with reusable subagents
     - Zero plugins ship agents today. A shared `pr-reviewer`, `doc-writer`, or `changelog-writer` agent would deduplicate logic across `review-pr`, `update-docs`, `update-changelog`.
     - Docs: https://code.claude.com/docs/en/plugins-reference#agents and https://code.claude.com/docs/en/sub-agents
-- [ ] Convert linter hooks to async with `asyncRewake`
+- [x] Convert linter hooks to async with `asyncRewake`
     - `plugins/linters/.claude-plugin/plugin.json` runs synchronously on every Edit/Write. Async-with-rewake means Claude only gets interrupted when lint actually fails, not on clean edits.
     - Docs: https://code.claude.com/docs/en/hooks (Advanced features → Async hooks)
 - [ ] Progressive disclosure for long SKILL.md files

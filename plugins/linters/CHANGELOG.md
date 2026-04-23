@@ -1,5 +1,10 @@
 # Changelog
 
+## [1.1.4] - 2026-04-22
+
+### Changed
+- Run linter hooks asynchronously via `asyncRewake` so clean edits no longer block on lint
+
 ## [1.1.3] - 2026-04-22
 
 ### Removed

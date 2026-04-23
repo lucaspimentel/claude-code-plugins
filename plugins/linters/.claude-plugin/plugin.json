@@ -13,17 +13,17 @@
       {
         "matcher": "Edit|Write",
         "statusMessage": "Running cslint...",
-        "hooks": [{ "type": "command", "command": "${CLAUDE_PLUGIN_ROOT}/scripts/cs-lint.sh" }]
+        "hooks": [{ "type": "command", "command": "${CLAUDE_PLUGIN_ROOT}/scripts/cs-lint.sh", "asyncRewake": true }]
       },
       {
         "matcher": "Edit|Write",
         "statusMessage": "Running PSScriptAnalyzer...",
-        "hooks": [{ "type": "command", "command": "${CLAUDE_PLUGIN_ROOT}/scripts/ps-lint.sh" }]
+        "hooks": [{ "type": "command", "command": "${CLAUDE_PLUGIN_ROOT}/scripts/ps-lint.sh", "asyncRewake": true }]
       },
       {
         "matcher": "Edit|Write",
         "statusMessage": "Running shellcheck...",
-        "hooks": [{ "type": "command", "command": "${CLAUDE_PLUGIN_ROOT}/scripts/sh-lint.sh" }]
+        "hooks": [{ "type": "command", "command": "${CLAUDE_PLUGIN_ROOT}/scripts/sh-lint.sh", "asyncRewake": true }]
       }
     ]
   }
