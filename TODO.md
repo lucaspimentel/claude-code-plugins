@@ -30,16 +30,9 @@ Priority legend: **P1** = high value / low effort, **P2** = medium, **P3** = nic
     - Forked `review-pr` (Explore) and `update-docs` (general-purpose, since Explore is read-only and update-docs writes files).
     - Scope narrowed: `update-github-actions`, `update-changelog`, and `address-pr-comments` intentionally left unforked because they have user-in-the-loop `AskUserQuestion` steps that don't survive the fork boundary.
     - Docs: https://code.claude.com/docs/en/skills#run-skills-in-a-subagent
-- [ ] Introduce `agents/` directory with reusable subagents
-    - Zero plugins ship agents today. A shared `pr-reviewer`, `doc-writer`, or `changelog-writer` agent would deduplicate logic across `review-pr`, `update-docs`, `update-changelog`.
-    - Docs: https://code.claude.com/docs/en/plugins-reference#agents and https://code.claude.com/docs/en/sub-agents
 - [x] Convert linter hooks to async with `asyncRewake`
     - `plugins/linters/.claude-plugin/plugin.json` runs synchronously on every Edit/Write. Async-with-rewake means Claude only gets interrupted when lint actually fails, not on clean edits.
     - Docs: https://code.claude.com/docs/en/hooks (Advanced features → Async hooks)
-- [ ] Progressive disclosure for long SKILL.md files
-    - `ship/SKILL.md`, `update-changelog/SKILL.md`, `address-pr-comments/SKILL.md` are all well over the recommended 500-line ceiling for SKILL.md.
-    - Split into `reference.md` / `examples.md` siblings and link from SKILL.md so details only load when needed.
-    - Docs: https://code.claude.com/docs/en/skills#add-supporting-files
 - [x] Expand `windows-notify` to fire on more lifecycle events
     - Currently only `Notification` (permission_prompt|idle_prompt) + `SessionStart` registration.
     - Add `Stop`, `StopFailure`, `SubagentStop`, and `TaskCompleted` handlers so toasts cover "done" and "errored" cases, not just "waiting on user".
@@ -51,21 +44,6 @@ Priority legend: **P1** = high value / low effort, **P2** = medium, **P3** = nic
 
 ## Situational / nice-to-have (P3)
 
-- [ ] Explore `prompt`-type or `agent`-type hooks instead of `command` for semantic checks
-    - All hooks across the repo are `command` type. The PreToolUse Bash gatekeeper could use a `prompt` hook for semantic destructive-command detection without bash scripting.
-    - Docs: https://code.claude.com/docs/en/hooks (Hook Types)
-- [ ] Add a `bin/` directory for plugin-provided executables on PATH
-    - Candidate: bundle a `wt-helper` in `windows-terminal` to reduce repeated `wt.exe` argument patterns in SKILL.md.
-    - Docs: https://code.claude.com/docs/en/plugins-reference (File locations reference → `bin/`)
-- [ ] Evaluate plugin `monitors` (v2.1.105+) for long-running watch patterns
-    - Could stream `gh run watch` output during `ship` without Claude polling.
-    - Docs: https://code.claude.com/docs/en/plugins-reference#monitors
-- [ ] Adopt `userConfig` if/when `windows-notify` gains toggles
-    - Right mechanism for sound-on/off, toast-duration, etc. — avoids env var hackery.
-    - Docs: https://code.claude.com/docs/en/plugins-reference#user-configuration
 - [ ] Use `$ARGUMENTS[N]` / `$N` positional args in multi-arg skills
     - `ship` takes several positional args and currently relies on `$ARGUMENTS` parsing. Positional access would simplify.
     - Docs: https://code.claude.com/docs/en/skills#pass-arguments-to-skills
-- [ ] Consider `${CLAUDE_PLUGIN_DATA}` for persistent caches
-    - E.g. `update-github-actions` could cache action→SHA lookups across sessions in the plugin's data dir.
-    - Docs: https://code.claude.com/docs/en/plugins-reference#persistent-data-directory
