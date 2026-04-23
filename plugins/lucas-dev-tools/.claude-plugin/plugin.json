@@ -12,7 +12,27 @@
         "hooks": [
           {
             "type": "command",
-            "command": "${CLAUDE_PLUGIN_ROOT}/scripts/pretool-bash-rules.sh"
+            "if": "Bash(cd *)",
+            "command": "${CLAUDE_PLUGIN_ROOT}/scripts/pretool-bash-rules.sh redundant-cd"
+          },
+          {
+            "type": "command",
+            "if": "Bash(git -C *)",
+            "command": "${CLAUDE_PLUGIN_ROOT}/scripts/pretool-bash-rules.sh redundant-cd"
+          },
+          {
+            "type": "command",
+            "if": "Bash(gh api /*)",
+            "command": "${CLAUDE_PLUGIN_ROOT}/scripts/pretool-bash-rules.sh gh-api-slash"
+          },
+          {
+            "type": "command",
+            "if": "Bash(git commit*)",
+            "command": "${CLAUDE_PLUGIN_ROOT}/scripts/pretool-bash-rules.sh 1password-commit"
+          },
+          {
+            "type": "command",
+            "command": "${CLAUDE_PLUGIN_ROOT}/scripts/pretool-bash-rules.sh tmp-path"
           }
         ]
       }

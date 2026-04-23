@@ -11,7 +11,7 @@ Priority legend: **P1** = high value / low effort, **P2** = medium, **P3** = nic
     - Move trigger phrases to the new `when_to_use` frontmatter field; keep `description` short and action-focused.
     - Affected files: `plugins/lucas-dev-tools/skills/*/SKILL.md` (esp. `address-pr-comments`, `add-todo`, `ship`, `update-changelog`, `update-github-actions`, `whats-next`, `update-pr-description`, `review-pr`).
     - Docs: https://code.claude.com/docs/en/skills#frontmatter-reference
-- [ ] Add `if:` permission-rule matchers to the PreToolUse Bash hook in `lucas-dev-tools`
+- [x] Add `if:` permission-rule matchers to the PreToolUse Bash hook in `lucas-dev-tools`
     - `plugins/lucas-dev-tools/.claude-plugin/plugin.json` currently runs `pretool-bash-rules.sh` on *every* Bash call. The script mostly cares about `cd` / `git -C` patterns.
     - Scope the hook with `if: "Bash(cd *)"` / `if: "Bash(git -C *)"` (tool-event hooks only) so it short-circuits for non-matching commands.
     - Docs: https://code.claude.com/docs/en/hooks (Common hook fields → `if`)

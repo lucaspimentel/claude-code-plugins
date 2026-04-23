@@ -1,5 +1,10 @@
 # Changelog
 
+## [1.14.6] - 2026-04-22
+
+### Changed
+- Scope PreToolUse Bash hook with per-rule `if:` matchers so the hook only fires on relevant commands (cd, git -C, gh api, git commit) instead of every bash call
+
 ## [1.14.3] - 2026-03-21
 
 ### Removed
