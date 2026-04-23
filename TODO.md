@@ -45,7 +45,7 @@ Priority legend: **P1** = high value / low effort, **P2** = medium, **P3** = nic
     - Add `Stop`, `StopFailure`, `SubagentStop`, and `TaskCompleted` handlers so toasts cover "done" and "errored" cases, not just "waiting on user".
     - Affected: `plugins/windows-notify/.claude-plugin/plugin.json`.
     - Docs: https://code.claude.com/docs/en/hooks (All Supported Hook Events)
-- [ ] Use `${CLAUDE_SKILL_DIR}` for bundled helper scripts
+- [x] Use `${CLAUDE_SKILL_DIR}` for bundled helper scripts
     - `plugins/lucas-dev-tools/skills/get-open-prs/SKILL.md` currently uses a brittle glob like `bash */scripts/get-open-prs.sh*`. `${CLAUDE_SKILL_DIR}/scripts/get-open-prs.sh` is cleaner and cwd-independent.
     - Docs: https://code.claude.com/docs/en/skills#available-string-substitutions
 - [ ] Add `effort: low` to trivial skills already on `model: haiku`

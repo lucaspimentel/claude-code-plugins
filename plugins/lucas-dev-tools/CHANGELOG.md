@@ -1,5 +1,10 @@
 # Changelog
 
+## [1.14.8] - 2026-04-22
+
+### Changed
+- Colocate the `get-open-prs` helper script under its skill directory and reference it via `${CLAUDE_SKILL_DIR}`
+
 ## [1.14.7] - 2026-04-22
 
 ### Changed

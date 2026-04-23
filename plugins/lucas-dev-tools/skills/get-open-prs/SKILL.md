@@ -20,7 +20,7 @@ Execute immediately. Do not ask for confirmation or describe what you will do â€
    Run the helper script:
 
    ```bash
-   bash "${CLAUDE_PLUGIN_ROOT}/scripts/get-open-prs.sh" <owner/repo> [flags]
+   bash "${CLAUDE_SKILL_DIR}/scripts/get-open-prs.sh" <owner/repo> [flags]
    ```
 
    Flags:
