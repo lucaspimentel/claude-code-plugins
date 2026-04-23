@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.15.0] - 2026-04-23
+
+### Changed
+- Make `review-pr` local mode interactive: ask what to do for each issue, apply fixes in order, and commit after each code change
+- Label `review-pr` severities with colored emoji (🔴 CRITICAL, 🟠 HIGH, 🟡 MEDIUM, 🟢 LOW)
+
 ## [1.14.10] - 2026-04-22
 
 ### Changed
