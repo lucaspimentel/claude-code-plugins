@@ -1,4 +1,4 @@
-# linters v1.1.2
+# linters v1.1.3
 
 Runs linters on edited files automatically via PostToolUse hooks. Warns about missing linters on session start.
 

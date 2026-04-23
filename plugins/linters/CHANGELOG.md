@@ -1,5 +1,10 @@
 # Changelog
 
+## [1.1.3] - 2026-04-22
+
+### Removed
+- Remove 1Password commit-retry prose from fix-cslint skill (now covered universally by the lucas-dev-tools hook)
+
 ## [1.1.2] - 2026-04-22
 
 ### Changed

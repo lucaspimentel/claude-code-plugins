@@ -27,12 +27,19 @@
           },
           {
             "type": "command",
-            "if": "Bash(git commit*)",
-            "command": "${CLAUDE_PLUGIN_ROOT}/scripts/pretool-bash-rules.sh 1password-commit"
-          },
+            "command": "${CLAUDE_PLUGIN_ROOT}/scripts/pretool-bash-rules.sh tmp-path"
+          }
+        ]
+      }
+    ],
+    "PostToolUseFailure": [
+      {
+        "matcher": "Bash",
+        "hooks": [
           {
             "type": "command",
-            "command": "${CLAUDE_PLUGIN_ROOT}/scripts/pretool-bash-rules.sh tmp-path"
+            "if": "Bash(git commit*)",
+            "command": "${CLAUDE_PLUGIN_ROOT}/scripts/posttool-1password-retry.sh"
           }
         ]
       }

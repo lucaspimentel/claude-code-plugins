@@ -18,7 +18,7 @@ Priority legend: **P1** = high value / low effort, **P2** = medium, **P3** = nic
 - [x] Add `statusMessage` to linter hooks for better spinner UX
     - `plugins/linters/.claude-plugin/plugin.json` PostToolUse hooks show a generic spinner. Add e.g. `"statusMessage": "Running cslint..."` per hook.
     - Docs: https://code.claude.com/docs/en/hooks (Common hook fields → `statusMessage`)
-- [ ] Convert the `1password-commit-retry` rule from PreToolUse to PostToolUseFailure
+- [x] Convert the `1password-commit-retry` rule from PreToolUse to PostToolUseFailure
     - Currently `plugins/lucas-dev-tools/scripts/pretool-bash-rules.sh:60-67` injects `additionalContext` on *every* `git commit` via PreToolUse. Claude has started volunteering that it saw the guidance in user-facing output (e.g. "no errors — the 1Password hook guidance didn't apply here"), which is noise.
     - Move the rule to a `PostToolUseFailure` hook matched on `Bash`, grep the tool output for `1Password: agent returned an error`, and only then emit the "do not retry, user is AFK" guidance. Fires only on the real failure case, no preemptive context leak.
     - Also remove the duplicated prose from `git-commit/SKILL.md:52-54`, `address-pr-comments/SKILL.md:75,121`, and `fix-cslint/SKILL.md:38` once the hook covers it universally.

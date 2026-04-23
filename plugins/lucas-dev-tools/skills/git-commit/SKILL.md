@@ -47,8 +47,3 @@ After all commits succeed, if `push` was requested:
 2. If no upstream: `git push -u origin HEAD`
 3. Otherwise: `git push`
 4. **Never force-push.** If push fails due to diverged history, report the error and let the user decide.
-
-## Critical Error Handling
-- If `git commit` fails with "1Password: agent returned an error", STOP immediately
-- DO NOT retry without signing - user is AFK and 1Password awaits authentication
-- Inform user and wait for them to authenticate

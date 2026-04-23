@@ -12,7 +12,7 @@
       "name": "lucas-dev-tools",
       "source": "./plugins/lucas-dev-tools",
       "description": "Developer workflow utilities: git commits, PR reviews, PR comments, docs updates, clipboard helpers",
-      "version": "1.14.6"
+      "version": "1.14.7"
     },
     {
       "name": "windows-notify",
@@ -36,7 +36,7 @@
       "name": "linters",
       "source": "./plugins/linters",
       "description": "Runs linters on edited files: cslint (.cs), PSScriptAnalyzer (.ps1), shellcheck (.sh)",
-      "version": "1.1.2"
+      "version": "1.1.3"
     }
   ]
 }

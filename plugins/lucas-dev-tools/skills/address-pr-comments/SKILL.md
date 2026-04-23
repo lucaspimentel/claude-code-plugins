@@ -72,7 +72,6 @@ For each unresolved thread, in order:
    - **"Skip"** — move to the next comment without changes
 6. If changes are made:
    - Stage and commit the change (follow git-commit skill conventions: imperative mood, concise subject, ≤ 50 chars)
-   - If `git commit` fails with "1Password: agent returned an error", STOP immediately — user is AFK
 7. Track the outcome: `{thread_id, action taken, short summary}`
 
 Continue until all threads are processed.
@@ -118,4 +117,3 @@ Replies are only offered **after pushing** — replying "fixed" to a comment sho
 - **Never auto-push**: Always ask before pushing
 - **Never post replies without per-comment user approval**
 - **Commit per comment**: Each addressed comment gets its own commit
-- **1Password error**: If git commit fails with 1Password agent error, STOP and inform user

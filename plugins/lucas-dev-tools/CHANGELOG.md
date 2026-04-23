@@ -1,5 +1,10 @@
 # Changelog
 
+## [1.14.7] - 2026-04-22
+
+### Changed
+- Move 1Password commit-retry guidance from PreToolUse to PostToolUseFailure so it only fires when a commit actually fails with that specific error, instead of on every commit attempt
+
 ## [1.14.6] - 2026-04-22
 
 ### Changed

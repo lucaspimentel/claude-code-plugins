@@ -35,7 +35,7 @@ Skip any rules the user excluded. For each remaining rule (starting with the hig
 2. Read the affected files and fix all violations for that rule
 3. Re-run `cslint --rules <RULE_ID> --format json [path]` to verify zero remaining violations for that rule
 4. If violations remain, fix them and re-verify (max 3 attempts per rule, then move on and warn the user)
-5. Stage and commit: `"Fix <RULE_ID>: <RuleName> (<count> violations)"` — get the rule name from the `"name"` field in `--format json` output or `--list-rules`. If `git commit` fails with "1Password: agent returned an error", STOP immediately — the user is AFK and 1Password awaits authentication. Do not retry.
+5. Stage and commit: `"Fix <RULE_ID>: <RuleName> (<count> violations)"` — get the rule name from the `"name"` field in `--format json` output or `--list-rules`.
 
 ### 3. Grouping threshold
 
