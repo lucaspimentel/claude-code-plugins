@@ -1,5 +1,10 @@
 # Changelog
 
+## [1.16.0] - 2026-04-24
+
+### Added
+- Add `review-pr-ultra` skill: runs three PR review passes in parallel (the `review-pr` logic, the `/code-review:code-review` workflow via a subagent, and the `/pr-review-toolkit:review-pr` specialized agents) and collates the findings into a single deduplicated, severity-sorted list before running the same interactive fix flow as `review-pr`
+
 ## [1.15.1] - 2026-04-23
 
 ### Fixed
