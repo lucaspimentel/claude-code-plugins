@@ -1,5 +1,10 @@
 # Changelog
 
+## [1.2.0] - 2026-04-24
+
+### Added
+- `rustfmt` hook for `.rs` files; parses `edition` from the nearest `Cargo.toml` and falls back to `--edition 2024`
+
 ## [1.1.4] - 2026-04-22
 
 ### Changed

@@ -1,4 +1,4 @@
-# linters v1.1.4
+# linters v1.2.0
 
 Runs linters on edited files automatically via PostToolUse hooks. Warns about missing linters on session start.
 
@@ -17,3 +17,4 @@ See [installation instructions](../../README.md#installation).
 | `cslint` | `.cs` |
 | PSScriptAnalyzer | `.ps1` |
 | `shellcheck` | `.sh` |
+| `rustfmt` | `.rs` |

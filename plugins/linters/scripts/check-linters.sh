@@ -2,6 +2,7 @@
 missing=()
 command -v cslint &>/dev/null    || missing+=("cslint (for .cs files)")
 command -v shellcheck &>/dev/null || missing+=("shellcheck (for .sh files)")
+command -v rustfmt &>/dev/null   || missing+=("rustfmt (for .rs files)")
 pwsh -NoProfile -c 'Get-Module -ListAvailable PSScriptAnalyzer' &>/dev/null || missing+=("PSScriptAnalyzer (for .ps1 files)")
 
 if [[ ${#missing[@]} -gt 0 ]]; then
