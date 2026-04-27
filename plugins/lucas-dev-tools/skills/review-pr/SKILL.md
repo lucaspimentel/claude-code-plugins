@@ -2,6 +2,7 @@
 name: review-pr
 description: "Review a pull request for issues and feedback."
 when_to_use: "Use when the user says 'review this PR', 'check this PR', 'look at PR changes', 'review the diff', 'what do you think of this PR', 'post review comments', 'any issues with this PR', 'what changed in this PR', 'are there problems with these changes', 'critique the diff', or any variation of wanting PR feedback or code review."
+argument-hint: "[findings|fix|post]"
 disable-model-invocation: true
 ---
 
@@ -9,12 +10,15 @@ Review a pull request and provide detailed feedback on the changes.
 
 ## Modes
 
-This skill has two modes:
+The skill has three modes, selected by an optional argument:
 
-- **Local mode** (default): Display review findings in the CLI only. DO NOT post anything to GitHub.
-- **Post mode**: Post review comments to GitHub. Only use this mode when the user explicitly says "post", "post comments", "post to GitHub", or similar.
+- `findings` — display review findings only; never modify code or post to GitHub
+- `fix` — display findings, then walk through each issue and apply local fixes as commits
+- `post` — display findings, then post review comments to GitHub via `gh api`
 
-## Review Steps
+If no argument is provided, run the findings phase first, then use `AskUserQuestion` to ask whether to `fix`, `post`, or `stop`.
+
+## Review Steps (all modes)
 
 1. Fetch PR details and full diff using `gh pr view` and `gh pr diff`
 2. Skip generated/vendored files: lock files (`*.lock`, `package-lock.json`, `yarn.lock`), `*.designer.cs`, auto-generated code, vendored dependencies
@@ -34,12 +38,7 @@ This skill has two modes:
 - Explain why something is an issue
 - Suggest concrete fixes when possible
 
-## Local Mode (default)
-
-- DO NOT post any comments to GitHub
-- DO NOT use `gh api` to create reviews or comments
-
-### Phase 1 — Present Summary
+## Findings Phase (always run first)
 
 - Display all review findings in the CLI output only
 - Label each comment with a severity emoji: 🔴 CRITICAL, 🟠 HIGH, 🟡 MEDIUM, 🟢 LOW
@@ -50,17 +49,30 @@ This skill has two modes:
   4. 🟢 **LOW**: Code style, minor improvements, suggestions
 - Keep the summary concise: one line per issue with severity, `file_path:line_number`, and a brief description
 
-If no issues were found, say so and stop.
+If no issues were found, say so and stop regardless of mode.
 
-### Phase 2 — Ask About Each Issue
+## After Findings
+
+Behavior after the findings phase depends on the mode:
+
+- **`findings` mode**: stop here.
+- **`fix` mode**: continue to "Fix Flow" below.
+- **`post` mode**: continue to "Post Flow" below.
+- **No mode argument**: use `AskUserQuestion` with options `fix`, `post`, `stop`. Then run the corresponding flow (or stop).
+
+## Fix Flow
+
+DO NOT post any comments to GitHub in this flow.
+
+### Step 1 — Ask About Each Issue
 
 For each issue in order, use `AskUserQuestion` to ask what to do. Offer options:
-- **"Fix it"** — investigate and implement a fix in Phase 3
+- **"Fix it"** — investigate and implement a fix
 - **"Skip"** — do nothing for this issue
 
-Collect answers for **all** issues before starting Phase 3. Track each answer as `{issue index, severity, file:line, action}`.
+Collect answers for **all** issues before applying any fixes. Track each answer as `{issue index, severity, file:line, action}`.
 
-### Phase 3 — Apply Fixes
+### Step 2 — Apply Fixes
 
 After all answers are collected, work through each "Fix it" issue in order (most critical first):
 
@@ -70,7 +82,7 @@ After all answers are collected, work through each "Fix it" issue in order (most
 
 Skipped issues are not touched.
 
-### Phase 4 — Final Summary
+### Step 3 — Final Summary
 
 If any changes were committed, show a summary listing:
 - Issues fixed, with the commit subject for each
@@ -78,9 +90,7 @@ If any changes were committed, show a summary listing:
 
 If no changes were made, no summary is needed.
 
-## Post Mode
-
-Only when the user explicitly requests posting comments to GitHub:
+## Post Flow
 
 - Use `gh api` to create a review with specific line comments
 - Endpoint: `repos/OWNER/REPO/pulls/PR_NUMBER/reviews`

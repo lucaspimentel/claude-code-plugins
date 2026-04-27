@@ -2,19 +2,25 @@
 name: review-pr-ultra
 description: "Deep PR review that fans out to multiple review engines in parallel and collates their findings into a single prioritized list."
 when_to_use: "Use when the user says 'ultra review', 'review-pr-ultra', 'deep review this PR', 'thorough PR review', 'comprehensive PR review', 'multi-agent PR review', 'kitchen-sink review', 'ultra PR review', or any variation of wanting an exhaustive pull-request review that combines multiple reviewers."
+argument-hint: "[findings|fix|post]"
 disable-model-invocation: true
 ---
 
 Review a pull request using multiple independent review passes running concurrently, then collate the findings into a single prioritized review.
 
-This skill is a superset of the `review-pr` skill. It reuses the same Phase 1-4 workflow (summary → ask → fix → summary) but expands Phase 1 to aggregate findings from multiple review sources instead of just one.
+This skill is a superset of the `review-pr` skill. It reuses the same Findings → Fix Flow / Post Flow workflow but expands the findings phase to aggregate results from multiple review sources instead of just one.
 
 ## Modes
 
-- **Local mode** (default): Display collated findings in the CLI only. DO NOT post anything to GitHub.
-- **Post mode**: Post review comments to GitHub. Only use when the user explicitly says "post", "post comments", "post to GitHub", or similar. In post mode, follow the same posting rules as `review-pr` (single review, `COMMENT` event, never `APPROVE` or `REQUEST_CHANGES`).
+The skill has three modes, selected by an optional argument:
 
-## Phase 1 — Fan Out and Collate
+- `findings` — display collated findings only; never modify code or post to GitHub
+- `fix` — display collated findings, then walk through each issue and apply local fixes as commits
+- `post` — display collated findings, then post review comments to GitHub via `gh api`
+
+If no argument is provided, run the findings phase first, then use `AskUserQuestion` to ask whether to `fix`, `post`, or `stop`.
+
+## Findings Phase — Fan Out and Collate
 
 ### Step 1: Gather shared PR context (once)
 
@@ -83,19 +89,36 @@ Reviewed PR #1234 — 3 critical, 5 high, 2 medium, 1 low (sources: code-review,
 
 Cross-source agreement is a confidence signal — issues flagged by 2+ sources are more likely real. Preserve the source list so the user can weigh that themselves.
 
-If no issues survived collation, say so and stop.
+If no issues survived collation, say so and stop regardless of mode.
 
-## Phase 2 — Ask About Each Issue
+## After Findings
 
-Identical to `review-pr` Phase 2: use `AskUserQuestion` per issue with options **"Fix it"** or **"Skip"**. Collect all answers before starting Phase 3. Track `{issue index, severity, file:line, action, sources}`.
+Behavior after the findings phase depends on the mode:
 
-## Phase 3 — Apply Fixes
+- **`findings` mode**: stop here.
+- **`fix` mode**: continue to "Fix Flow" below.
+- **`post` mode**: continue to "Post Flow" below.
+- **No mode argument**: use `AskUserQuestion` with options `fix`, `post`, `stop`. Then run the corresponding flow (or stop).
 
-Identical to `review-pr` Phase 3: work through "Fix it" issues most-critical-first, making the code change and committing each one following the `git-commit` skill conventions.
+## Fix Flow
 
-## Phase 4 — Final Summary
+Identical to the `review-pr` Fix Flow:
 
-Identical to `review-pr` Phase 4: list issues fixed (with commit subjects) and issues skipped. Skip the summary entirely if nothing was committed.
+1. **Ask About Each Issue** — use `AskUserQuestion` per issue with options **"Fix it"** or **"Skip"**. Collect all answers before applying any fixes. Track `{issue index, severity, file:line, action, sources}`.
+2. **Apply Fixes** — work through "Fix it" issues most-critical-first, making the code change and committing each one following the `git-commit` skill conventions (imperative mood, concise subject ≤ 50 chars).
+3. **Final Summary** — list issues fixed (with commit subjects) and issues skipped. Skip the summary entirely if nothing was committed.
+
+DO NOT post any comments to GitHub in this flow.
+
+## Post Flow
+
+Follow the same posting rules as `review-pr`:
+
+- Use `gh api` to create a single review with line comments, endpoint `repos/OWNER/REPO/pulls/PR_NUMBER/reviews`
+- Each comment specifies `path`, `line` (or `start_line`/`end_line`), `body`
+- Include footer in review body: `"\n\n---\n*Review by Claude Code*"`
+- ALWAYS use event type: `COMMENT`
+- NEVER use `REQUEST_CHANGES` or `APPROVE` — human review required
 
 ## Notes
 

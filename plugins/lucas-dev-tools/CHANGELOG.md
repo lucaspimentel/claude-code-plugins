@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.17.0] - 2026-04-27
+
+### Changed
+- Replace `review-pr` two-mode (local/post) split with three explicit modes selected by an optional argument: `findings` (read-only summary), `fix` (apply local fixes as commits), `post` (post comments to GitHub). When no argument is given, the skill runs the findings phase first, then asks whether to fix, post, or stop
+- Apply the same three-mode argument and findings-first prompt to `review-pr-ultra`
+- Add `argument-hint: "[findings|fix|post]"` to both skills so the CLI surfaces mode options in autocomplete
+
 ## [1.16.0] - 2026-04-24
 
 ### Added
