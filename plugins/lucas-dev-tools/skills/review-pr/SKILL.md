@@ -20,23 +20,10 @@ If no argument is provided, run the findings phase first, then use `AskUserQuest
 
 ## Review Steps (all modes)
 
-1. Fetch PR details and full diff using `gh pr view` and `gh pr diff`
+1. Fetch PR details and full diff using `gh pr view` and `gh pr diff`. If the diff is empty, stop and tell the user.
 2. Skip generated/vendored files: lock files (`*.lock`, `package-lock.json`, `yarn.lock`), `*.designer.cs`, auto-generated code, vendored dependencies
 3. For large PRs, prioritize the most-changed files first
-4. Analyze changes for:
-   - Logic errors and bugs
-   - Security vulnerabilities (injection, XSS, etc.)
-   - Performance issues
-   - Code style inconsistencies
-   - Missing error handling
-   - Test coverage gaps
-5. Focus on actionable issues, not positive feedback
-
-## Comment Format
-
-- Be specific and reference code directly with `file_path:line_number`
-- Explain why something is an issue
-- Suggest concrete fixes when possible
+4. Focus on actionable issues, not positive feedback
 
 ## Findings Phase (always run first)
 
@@ -99,3 +86,9 @@ If no changes were made, no summary is needed.
 - ALWAYS use event type: `COMMENT`
 - NEVER use `REQUEST_CHANGES` or `APPROVE` — human review required
 - Group related comments under a single review
+
+### Comment body guidelines
+
+- Reference code directly with `file_path:line_number`
+- Explain why something is an issue, not just what
+- Suggest a concrete fix when possible

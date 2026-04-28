@@ -1,5 +1,15 @@
 # Changelog
 
+## [1.18.0] - 2026-04-28
+
+### Changed
+- Rewrite `review-pr-ultra` as a thin wrapper that dispatches `/code-review:code-review` and the `pr-review-toolkit` agents in parallel, presents findings side by side, then hands off to `review-pr` for the fix or post phase. Drops the redundant local review pass, the pre-fetch step, and the cross-source collation/dedup logic — the two upstream skills use different severity scales and filtering, so cross-source agreement is for the user to weigh
+- Reference `review-pr`'s Fix Flow / Post Flow from `review-pr-ultra` instead of restating them, eliminating drift between the two skills
+- Drop the generic analysis category list from `review-pr` review steps and fold the orphaned "Comment Format" guidance into Post Flow where it actually applies
+
+### Fixed
+- Stop early in both `review-pr` and `review-pr-ultra` when `gh pr diff` returns an empty diff
+
 ## [1.17.0] - 2026-04-27
 
 ### Changed
