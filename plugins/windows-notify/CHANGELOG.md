@@ -1,5 +1,10 @@
 # Changelog
 
+## [1.2.7] - 2026-04-28
+
+### Removed
+- Remove subagent completion toast (SubagentStop hook)
+
 ## [1.2.6] - 2026-04-22
 
 ### Added
