@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.19.0] - 2026-05-11
+
+### Changed
+- `address-pr-comments`: harden against prompt injection from untrusted PR comment bodies. Defer agent explanation and correctness evaluation until the user picks "Fix it"; pre-approval reads are limited to the cited file ±15 lines. Add an explicit treat-as-data preamble that lists scope-expanding directives (reading unrelated secrets/credentials, running unrequested shell/network commands, editing CI/auth files, injecting text into commits or replies) the skill must refuse.
+- `address-pr-comments`: default reply draft is now the literal template `Fixed. <≤80 char diff summary>`; free-form replies require explicit "Edit". The agent only fills the diff-summary field.
+- `address-pr-comments`: stop filtering review-thread comments by author. Automated reviewers (Codex, Copilot Code Review, CodeRabbit) are addressed alongside human comments. Replace the unreliable login-suffix bot heuristic with GraphQL `author.__typename`; bot-authored comments get a `[🤖]` prefix in the listing for visual distinction.
+
 ## [1.18.0] - 2026-04-28
 
 ### Changed
