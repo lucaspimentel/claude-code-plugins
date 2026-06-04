@@ -1,5 +1,10 @@
 # Changelog
 
+## [1.3.0] - 2026-06-04
+
+### Removed
+- Remove turn-completion toast (Stop hook) and task-completion toast (TaskCompleted hook) to reduce notification noise when idle
+
 ## [1.2.7] - 2026-04-28
 
 ### Removed

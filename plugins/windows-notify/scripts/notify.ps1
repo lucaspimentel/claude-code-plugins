@@ -69,10 +69,8 @@ if ($ancestorHwnd -ne [IntPtr]::Zero -and -not $isForeground) {
 $aumid = "ClaudeCode.Notifications"
 
 $eventDefaults = @{
-    "Stop"          = @{ title = "Turn complete";  message = "Claude finished responding" }
     "StopFailure"   = @{ title = "Turn failed";    message = "Claude hit an API error" }
     "SubagentStop"  = @{ title = "Subagent done";  message = "A subagent finished" }
-    "TaskCompleted" = @{ title = "Task completed"; message = "A task was marked complete" }
 }
 $hookEvent      = $data.hook_event_name
 $defaults       = $eventDefaults[$hookEvent]
