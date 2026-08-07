@@ -10,7 +10,7 @@ Each plugin lives under `plugins/<plugin-name>/` and contains:
 - `.claude-plugin/plugin.json` — plugin metadata (including optional `hooks` for PreToolUse, PostToolUse, SessionStart, etc.)
 - `skills/<skill-name>/SKILL.md` — one skill per subdirectory; the frontmatter `name` and `description` fields control how Claude triggers the skill
 
-Some plugins are hooks-only (no skills directory) — e.g. `linters`, `windows-notify`.
+Some plugins are hooks-only (no skills directory) — e.g. `windows-notify`.
 
 ## Plugin Versions
 
