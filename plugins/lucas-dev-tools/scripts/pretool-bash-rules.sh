@@ -1,7 +1,7 @@
 #!/bin/bash
 # PreToolUse hook dispatcher for Bash commands.
 # Usage: pretool-bash-rules.sh <rule-name>
-# Rules: gh-api-slash | redundant-cd | tmp-path
+# Rules: gh-api-slash | tmp-path
 #
 # Called as a separate hook entry per rule in plugin.json, each scoped with
 # its own `if:` matcher so unrelated Bash calls short-circuit in the harness
@@ -13,7 +13,6 @@
 #
 # Per-rule disable via env vars (set to "1" to disable):
 #   DISABLE_GH_API_SLASH_RULE
-#   DISABLE_REDUNDANT_CD_RULE
 #   DISABLE_TMP_PATH_RULE
 
 rule="$1"
@@ -27,30 +26,6 @@ case "$rule" in
     if [ "$DISABLE_GH_API_SLASH_RULE" != "1" ] && echo "$command" | grep -qE 'gh\s+api\s+/'; then
       echo "Omit the leading / from gh api endpoint paths (wrong: gh api /repos/..., right: gh api repos/...)." >&2
       exit 2
-    fi
-    ;;
-
-  redundant-cd)
-    # shellcheck disable=SC2016
-    if [ "$DISABLE_REDUNDANT_CD_RULE" != "1" ] && echo "$command" | grep -qE '(cd\s+"?[^;|& ]+\s*&&\s)|(git\s+-C\s+"?[^;|& ]+)'; then
-      cwd=$(echo "$input" | jq -r '.cwd // "unknown"')
-      # Extract the target path using bash builtins (avoids MSYS path conversion)
-      target=""
-      if [[ "$command" =~ cd[[:space:]]+([\"\']?)([^';''|''&'' '\"]+) ]]; then
-        target="${BASH_REMATCH[2]}"
-      elif [[ "$command" =~ git[[:space:]]+-C[[:space:]]+([\"\']?)([^';''|''&'' '\"]+) ]]; then
-        target="${BASH_REMATCH[2]}"
-      fi
-      # Strip trailing quote if present
-      target="${target%\"}"
-      target="${target%\'}"
-      # Normalize both paths with cygpath -w for comparison (consistent Windows format)
-      norm_cwd=$(cygpath -w "$cwd" 2>/dev/null || echo "$cwd")
-      norm_target=$(cygpath -w "$target" 2>/dev/null || echo "$target")
-      if [ "$norm_cwd" = "$norm_target" ]; then
-        echo "Redundant \`cd\` detected. Current directory ($cwd) already matches target ($target). Don't use \`cd <path> && <command>\` or \`git -C <path> <command>\` when already in the target directory." >&2
-        exit 2
-      fi
     fi
     ;;
 

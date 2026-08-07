@@ -1,5 +1,10 @@
 # Changelog
 
+## [1.23.0] - 2026-08-07
+
+### Removed
+- Remove the `redundant-cd` PreToolUse rule that flagged `cd <path> && <command>` and `git -C <path> <command>` when already in the target directory
+
 ## [1.19.0] - 2026-05-11
 
 ### Changed
