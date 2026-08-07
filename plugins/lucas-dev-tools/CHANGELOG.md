@@ -5,6 +5,22 @@
 ### Removed
 - Remove the `redundant-cd` PreToolUse rule that flagged `cd <path> && <command>` and `git -C <path> <command>` when already in the target directory
 
+## [1.22.0] - 2026-05-15
+
+### Changed
+- Make whats-next print a sorted task list and stop, instead of using AskUserQuestion and starting work on the selected task
+- Update whats-next description and when_to_use to reflect listing tasks rather than picking and working on one
+
+## [1.21.0] - 2026-05-13
+
+### Removed
+- Remove get-open-prs, copy-pr-link, and copy-pwd skills (including the get-open-prs helper script)
+
+## [1.20.0] - 2026-05-13
+
+### Changed
+- Simplify whats-next to stop after presenting the prioritized task list, dropping the plan/execute and wrap-up steps
+
 ## [1.19.0] - 2026-05-11
 
 ### Changed
