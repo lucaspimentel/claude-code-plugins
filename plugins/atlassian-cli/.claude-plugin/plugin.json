@@ -1,5 +1,6 @@
 {
   "name": "atlassian-cli",
+  "version": "1.0.0",
   "description": "Atlassian CLI (acli) usage for Jira and Confluence: authentication, JQL searches, bulk operations, sprint reports",
   "author": {
     "name": "Jakob He",

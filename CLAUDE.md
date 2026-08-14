@@ -17,6 +17,7 @@ Some plugins are hooks-only (no skills directory) — e.g. `windows-notify`.
 Follow [semver](https://semver.org/) when bumping plugin versions. When a plugin changes, update the version in all of these files (check each — they may already reflect the new version from pending changes):
 
 - `.claude-plugin/marketplace.json` — the `"version"` field for the plugin
+- `plugins/<plugin-name>/.claude-plugin/plugin.json` — the `"version"` field
 - `README.md` — the version column in the plugins table
 - `plugins/<plugin-name>/README.md` — the version in the heading
 

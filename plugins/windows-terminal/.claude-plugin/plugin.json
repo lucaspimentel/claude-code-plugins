@@ -1,5 +1,6 @@
 {
   "name": "windows-terminal",
+  "version": "1.1.1",
   "description": "Windows Terminal pane and tab management via wt.exe",
   "author": { "name": "Lucas Pimentel" },
   "repository": "https://github.com/lucaspimentel/claude-plugins"

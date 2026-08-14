@@ -1,5 +1,6 @@
 {
   "name": "linters",
+  "version": "1.2.0",
   "description": "Runs linters on edited files: cslint (.cs), PSScriptAnalyzer (.ps1), shellcheck (.sh), rustfmt (.rs)",
   "author": { "name": "Lucas Pimentel" },
   "repository": "https://github.com/lucaspimentel/claude-plugins",
