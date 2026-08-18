@@ -1,7 +1,6 @@
 ---
 name: review-pr-ultra
 description: "Deep PR review that runs `code-review:code-review` and `pr-review-toolkit` agents in parallel, then hands off to `review-pr` for fix or post."
-when_to_use: "Use when the user says 'ultra review', 'review-pr-ultra', 'deep review this PR', 'thorough PR review', 'comprehensive PR review', 'multi-agent PR review', 'kitchen-sink review', 'ultra PR review', or any variation of wanting an exhaustive pull-request review that combines multiple reviewers."
 argument-hint: "[findings|fix|post]"
 disable-model-invocation: true
 ---

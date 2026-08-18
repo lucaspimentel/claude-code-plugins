@@ -1,8 +1,8 @@
 ---
 name: git-commit
 description: "Commit pending changes to git. Accepts an optional argument describing what to commit (e.g. 'all changes', 'staged only', specific file names). Also accepts an optional 'push' keyword to push after committing."
-when_to_use: "Use when the user says 'commit', 'commit my changes', 'commit all', 'commit everything', 'save my work to git', 'stage and commit', or any variation of wanting to create a git commit."
 argument-hint: "[push] [file or description]"
+disable-model-invocation: true
 ---
 
 Commit pending changes to git.
