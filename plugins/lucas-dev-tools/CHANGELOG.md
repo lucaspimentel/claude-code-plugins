@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.24.0] - 2026-08-18
+
+### Changed
+- Restrict all skills to explicit `/skill-name` invocation instead of letting Claude auto-trigger them from conversation
+- Drop the now-unused `when_to_use` trigger-phrase field from each skill's frontmatter
+
 ## [1.23.0] - 2026-08-07
 
 ### Removed
