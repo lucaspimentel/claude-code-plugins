@@ -1,5 +1,10 @@
 # Changelog
 
+## [1.25.0] - 2026-08-26
+
+### Removed
+- Remove the review-pr and review-pr-ultra skills
+
 ## [1.24.0] - 2026-08-18
 
 ### Changed

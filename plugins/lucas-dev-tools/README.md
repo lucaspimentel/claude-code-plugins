@@ -1,4 +1,4 @@
-# lucas-dev-tools v1.24.0
+# lucas-dev-tools v1.25.0
 
 Developer workflow utilities for day-to-day use inside Claude Code.
 
@@ -12,8 +12,6 @@ See [installation instructions](../../README.md#installation).
 | `address-pr-comments` | Walk through PR review comments one at a time and address them |
 | `update-docs` | Update project documentation based on recent changes |
 | `update-pr-description` | Update the PR title and description to reflect the current changes |
-| `review-pr` | Review a pull request for issues and feedback |
-| `review-pr-ultra` | Deep PR review that runs `code-review:code-review` and `pr-review-toolkit` agents in parallel, then hands off to `review-pr` for fix or post |
 | `ship` | Run release actions: version, changelog, docs, commit, tag, push, watch, release |
 | `update-github-actions` | Update and pin GitHub Actions in workflow files to commit SHAs |
 | `update-changelog` | Manage CHANGELOG.md files and GitHub releases |
