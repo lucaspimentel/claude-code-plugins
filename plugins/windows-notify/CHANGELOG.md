@@ -1,5 +1,10 @@
 # Changelog
 
+## [1.4.0] - 2026-09-04
+
+### Added
+- Add toasts for MCP elicitation dialogs, background agent input/completion, and usage-limit auto-resume pauses
+
 ## [1.3.0] - 2026-06-04
 
 ### Removed

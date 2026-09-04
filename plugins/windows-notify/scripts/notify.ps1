@@ -69,8 +69,14 @@ if ($ancestorHwnd -ne [IntPtr]::Zero -and -not $isForeground) {
 $aumid = "ClaudeCode.Notifications"
 
 $eventDefaults = @{
-    "StopFailure"   = @{ title = "Turn failed";    message = "Claude hit an API error" }
-    "SubagentStop"  = @{ title = "Subagent done";  message = "A subagent finished" }
+    "StopFailure"               = @{ title = "Turn failed";        message = "Claude hit an API error" }
+    "SubagentStop"              = @{ title = "Subagent done";      message = "A subagent finished" }
+    "agent_needs_input"         = @{ title = "Agent waiting";      message = "A background agent needs your input" }
+    "agent_completed"           = @{ title = "Agent finished";     message = "A background agent completed" }
+    "elicitation_dialog"        = @{ title = "Input needed";       message = "An MCP server needs your input" }
+    "elicitation_url_dialog"    = @{ title = "Browser needed";     message = "An MCP server needs you to open a URL" }
+    "quota_auto_resume_stale"   = @{ title = "Usage limit";        message = "Press Enter to continue after the usage limit reset" }
+    "quota_auto_resume_disabled"= @{ title = "Task paused";        message = "Auto-resume after the usage limit was cancelled" }
 }
 $hookEvent      = $data.hook_event_name
 $defaults       = $eventDefaults[$hookEvent]
